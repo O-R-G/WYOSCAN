@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'f91w_osx' target in the 'f91w_osx' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
