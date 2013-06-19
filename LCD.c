@@ -1,5 +1,7 @@
-#include <msp430f4152.h>
+//#include <msp430f4152.h>
+#include "msp430.h"
 #include "LCD.h"
+
 
 
 /*
@@ -130,7 +132,7 @@ e   c
  d4d
 */
 
-char *hoursBMemPtr[7] =
+unsigned char *hoursBMemPtr[7] =
 {
   &LCDMEM[10], //a
   &LCDMEM[10], //b
@@ -154,7 +156,7 @@ const char hoursBSegs[7] =
 
 };
 
-char *hoursAMemPtr[7] =
+unsigned char *hoursAMemPtr[7] =
 {
   &LCDMEM[9], //a
   &LCDMEM[9], //b
@@ -176,7 +178,7 @@ const char hoursASegs[7] =
   seg5, //g
 
 };
-char *minsAMemPtr[7] =
+unsigned char *minsAMemPtr[7] =
 {
   &LCDMEM[11], //a
   &LCDMEM[11], //b
@@ -198,7 +200,7 @@ const char minsASegs[7] =
   seg5, //6 - g
 };
 
-char *minsBMemPtr[7] =
+unsigned char *minsBMemPtr[7] =
 {
   &LCDMEM[0], //a
   &LCDMEM[5], //b
@@ -220,7 +222,7 @@ const char minsBSegs[7] =
   seg5, //6 - g
 };
 
-char *secsAMemPtr[7] = 
+unsigned char *secsAMemPtr[7] = 
 {
   &LCDMEM[1], //a
   &LCDMEM[1], //b
@@ -242,7 +244,7 @@ const char secsASegs[7] =
   seg5
 };
 
-char *secsBMemPtr[7] = 
+unsigned char *secsBMemPtr[7] = 
 {
   &LCDMEM[2], //a
   &LCDMEM[2], //b
@@ -264,7 +266,7 @@ const char secsBSegs[7] =
   seg5
 };
 
-char *dayAMemPtr[8] = 
+unsigned char *dayAMemPtr[8] = 
 {
   &LCDMEM[6], //a
   &LCDMEM[6], //b
@@ -288,7 +290,7 @@ const char dayASegs[8] =
   seg1, //| 7
 };
 
-char *dayBMemPtr[7] = 
+unsigned char *dayBMemPtr[7] = 
 {
   &LCDMEM[5], //a
   &LCDMEM[5], //b
@@ -311,7 +313,7 @@ const char dayBSegs[8] =
 };
 
 
-char *dateAMemPtr[7] = 
+unsigned char *dateAMemPtr[7] = 
 {
   &LCDMEM[4], //a
   &LCDMEM[4], //b
@@ -333,7 +335,7 @@ const char dateASegs[8] =
   seg5, //g 6
 };
 
-char *dateBMemPtr[7] = 
+unsigned char *dateBMemPtr[7] = 
 {
   &LCDMEM[3], //a
   &LCDMEM[3], //b
@@ -417,7 +419,7 @@ void testLCDbySegArr(void){
         // test lcd 0 sequnc   
         if(P6IN > 0){
     
-                debug_printf("button\n");
+                //debug_printf("button\n");
         }
         // Enter LPM3 w/ interrupts   
         _BIS_SR(LPM3_bits + GIE);     

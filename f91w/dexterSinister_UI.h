@@ -32,10 +32,12 @@ void UI_dispatchMain(void);
 void UI_showSetTime(void);
 void UI_showSetHz(void);
 void UI_setTimeMode(void);
-
+void UI_setTime_Inc(void);
+void UI_showInfo(void);
 void UI_showInfoSnake(void);
 void UI_showInfoStamp(void);
 void UI_showInfoHalmos(void);
+void UI_showStopwatch(void);
 
 
 #endif /*FILE_DSUI_SEEN */

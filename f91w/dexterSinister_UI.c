@@ -1,4 +1,5 @@
-#include <msp430f4152.h>
+//#include <msp430f4152.h>
+#include "msp430.h"
 #include "dexterSinister.h"
 #include "dexterSinister_UI.h"
 #include "LCD.h"

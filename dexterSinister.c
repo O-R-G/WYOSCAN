@@ -1,4 +1,5 @@
-#include <msp430f4152.h>
+//#include <msp430f4152.h>
+#include "msp430.h"
 #include "dexterSinister.h"
 #include "LCD.h"
 
@@ -50,7 +51,7 @@ void ds_test(void){
 
      for(;;){
        if(displayModeFlag == 0){
-       ds_animate(0,0,0);
+       //ds_animate(0,0,0);
        // turn on led
        //P5OUT ^= BIT3;
          // Enter LPM3 w/ interrupts   

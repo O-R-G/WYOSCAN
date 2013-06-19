@@ -1,6 +1,7 @@
-#include <__cross_studio_io.h>
+//#include <__cross_studio_io.h>
 #include <stdlib.h>
-#include <msp430f4152.h>
+//#include <msp430f4152.h>
+#include "msp430.h"
 #include "rtc.h"
 #include "lcd.h"
 #include "dexterSinister_UI.h"
