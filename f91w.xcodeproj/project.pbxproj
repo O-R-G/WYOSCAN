@@ -49,6 +49,8 @@
 		63FAD66C1759227100FFB66B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 63FAD66B1759227100FFB66B /* libxml2.dylib */; };
 		63FAD66E1759228300FFB66B /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63FAD66D1759228300FFB66B /* CoreText.framework */; };
 		63FAD6701759229000FFB66B /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63FAD66F1759229000FFB66B /* CoreImage.framework */; };
+		93F6C03E17B43A6300A1FAC2 /* 57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 93F6C03D17B43A6300A1FAC2 /* 57x57.png */; };
+		93F6C04017B43A7F00A1FAC2 /* 114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 93F6C03F17B43A7F00A1FAC2 /* 114x114.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -236,6 +238,8 @@
 		63FAD66B1759227100FFB66B /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		63FAD66D1759228300FFB66B /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		63FAD66F1759229000FFB66B /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		93F6C03D17B43A6300A1FAC2 /* 57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 57x57.png; sourceTree = "<group>"; };
+		93F6C03F17B43A7F00A1FAC2 /* 114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 114x114.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,6 +291,8 @@
 		6302D24217567875006961E3 = {
 			isa = PBXGroup;
 			children = (
+				93F6C03F17B43A7F00A1FAC2 /* 114x114.png */,
+				93F6C03D17B43A6300A1FAC2 /* 57x57.png */,
 				6302D25417567875006961E3 /* f91w */,
 				6302D27B17567875006961E3 /* f91wTests */,
 				63FAD66B1759227100FFB66B /* libxml2.dylib */,
@@ -701,6 +707,8 @@
 				6302D26517567875006961E3 /* Default-568h@2x.png in Resources */,
 				6302D26817567875006961E3 /* MainStoryboard_iPhone.storyboard in Resources */,
 				6302D26B17567875006961E3 /* MainStoryboard_iPad.storyboard in Resources */,
+				93F6C03E17B43A6300A1FAC2 /* 57x57.png in Resources */,
+				93F6C04017B43A7F00A1FAC2 /* 114x114.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
