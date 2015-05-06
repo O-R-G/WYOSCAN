@@ -439,7 +439,7 @@ void testLCDbySegArr(void){
 
 */
 void setDay(char d){
-   int k;
+   // int k;
 
   // clear segments
   LCDMEM[5] &= ~(seg4 + seg5 + seg6);
@@ -548,7 +548,7 @@ void setBCDHours(char num){
   Set the Hour digits with decimal input 
  ****************************/
 void setHours(char num){
-  int k;
+  // int k;
   char digitA = 0;
   char digitB = 0;
 
@@ -585,9 +585,10 @@ void clearHours(void){
 void setHourSegs(char digitA, char digitB, unsigned int segMask){
      extern unsigned char blinkFlag;
      
-     unsigned int mask, k, subMaskA, subMaskB;
-     unsigned char segNum = 0;
-     unsigned char bit = 0;
+    // unsigned int mask;
+    unsigned int k, subMaskA, subMaskB;
+    unsigned char segNum = 0;
+    unsigned char bit = 0;
      subMaskA = segMask >> 7;     // get upper niblle
      subMaskB = segMask & 0x7F;  // get lower nibble
      
@@ -686,7 +687,8 @@ void clearMins(void){
 
 void setMinsSegs(char digitA, char digitB, unsigned int segMask){
   //TODO because there are only 7 segments the mask doesn't align with nibbles
-     unsigned int mask, k, subMaskA, subMaskB;
+    // unsigned int mask;
+    unsigned int k, subMaskA, subMaskB;
      unsigned char segNum = 0;
      unsigned char bit = 0;
      subMaskA = segMask >> 7;     // get upper niblle
@@ -797,7 +799,8 @@ void clearSecs(void){
 
 void setSecsSegs(char digitA, char digitB, unsigned int segMask){
   //TODO because there are only 7 segments the mask doesn't align with nibbles
-     unsigned int mask, k, subMaskA, subMaskB;
+    // unsigned int mask;
+    unsigned int k, subMaskA, subMaskB;
      unsigned char segNum = 0;
      unsigned char bit = 0;
      subMaskA = segMask >> 7;     // get upper niblle

@@ -12,6 +12,7 @@
 #import "display.h"
 #import "dexterSinister.h"
 #import "dexterSinister_UI.h"
+#import "RTC.h"
 
 @implementation f91w
 
@@ -54,7 +55,7 @@
 {
 
   
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:[NSDate date]];
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:[NSDate date]];
     
     NSInteger hour= [components hour];
     NSInteger minute = [components minute];

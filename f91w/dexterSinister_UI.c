@@ -121,7 +121,7 @@ void UI_showInfoSnake(void){
 }
 
 void UI_showInfoStamp(void){
-    unsigned int temp;
+    // unsigned int temp;
 
     // show build date: MM:DD:YY
     setBCDHours(BUILD_MONTH);

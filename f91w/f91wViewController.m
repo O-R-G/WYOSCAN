@@ -8,8 +8,8 @@
 
 #import "f91wViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "SVGKit.h"
-#import "SVGKFastImageView.h"
+//#import "SVGKit.h"
+//#import "SVGKFastImageView.h"
 #import "display.h"
 #import "f91w.h"
 
@@ -31,7 +31,7 @@ float aspect = 740/230;//360;
     hzSetMode = NO;
     displayWidth = 740;//self.view.frame.size.width-50;
     displayHeight = displayWidth/aspect;
-    float extraWidth = self.view.frame.size.width - displayWidth;
+    //float extraWidth = self.view.frame.size.width - displayWidth;
     float extraHeight = self.view.frame.size.height - displayHeight;
     
     CGRect displayArea = CGRectMake(0,extraHeight/2, displayWidth , displayHeight);
@@ -169,5 +169,8 @@ float aspect = 740/230;//360;
     }
 }
 
+-(BOOL)prefersStatusBarHidden{
+    return YES;
+}
 
 @end

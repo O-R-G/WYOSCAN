@@ -15,6 +15,7 @@ void RTC_incYear(void);
 
 int int2bcd(int);
 int bcd2int(int);
+void RTC_resetStopWatch(void);
 
 
 #endif /*FILE_RTC_SEEN */

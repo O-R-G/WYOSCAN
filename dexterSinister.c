@@ -23,7 +23,7 @@ extern char digit[];
 extern char segArr[];
 
 void initDS(void){
-     char i;
+     // char i;
      // init animMask
 
 
@@ -43,7 +43,7 @@ void shiftAnimMask(void){
 void ds_test(void){
      extern char displayModeFlag;
      extern int delayLength;
-     int i;
+     //int i;
 
      setTrailLength(11);
      //setDate(RTCDAY);
@@ -77,7 +77,7 @@ void ds_animateDigits(unsigned char hours, unsigned char blinkHoursFlag, unsigne
   unsigned int animSecsMask;
   extern unsigned char blinkFlag;
 
-  if((blinkHoursFlag == 1)){
+  if(blinkHoursFlag == 1){
     if(blinkFlag == 1){
        animHoursMask =  0xFFFF;
     }else{
@@ -86,7 +86,7 @@ void ds_animateDigits(unsigned char hours, unsigned char blinkHoursFlag, unsigne
   } else {
     animHoursMask = (animMask >> 28) & 0x3FFF;
   }
-  if((blinkMinsFlag == 1)){
+  if(blinkMinsFlag == 1){
     if(blinkFlag == 1){                
      animMinsMask =  0xFFFF;
     }else{
@@ -164,7 +164,7 @@ void ds_animateRTC(unsigned char blinkHoursFlag, unsigned char blinkMinsFlag, un
   unsigned int animSecsMask;
   extern unsigned char blinkFlag;
 
-  if((blinkHoursFlag == 1)){
+  if(blinkHoursFlag == 1){
     if(blinkFlag == 1){
        animHoursMask =  0xFFFF;
     }else{
@@ -173,7 +173,7 @@ void ds_animateRTC(unsigned char blinkHoursFlag, unsigned char blinkMinsFlag, un
   } else {
     animHoursMask = (animMask >> 28) & 0x3FFF;
   }
-  if((blinkMinsFlag == 1)){
+  if(blinkMinsFlag == 1){
     if(blinkFlag == 1){                
      animMinsMask =  0xFFFF;
     }else{
@@ -231,7 +231,7 @@ void ds_animateRTC(unsigned char blinkHoursFlag, unsigned char blinkMinsFlag, un
    Function to set the length of the trail
    ************************************* */
 void setTrailLength(unsigned char length){
-     int shiftAmount = 0;
+     // int shiftAmount = 0;
      if(length > 20) length = 20;
      if(length < 1) length = 1;
      trailMask = 0xFFFFFFFF >> (32 - length);
