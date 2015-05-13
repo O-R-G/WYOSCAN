@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A77DCE31B03EF420042EDA7 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A77DCE21B03EF420042EDA7 /* Media.xcassets */; };
 		2ADB64301AFAA69400DFEBF7 /* f91w.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E86715175A2C9A00135D0A /* f91w.m */; };
 		2ADB64311AFAA69700DFEBF7 /* display.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E86725175D33E200135D0A /* display.m */; };
 		2ADB64321AFAA69B00DFEBF7 /* dexterSinister.c in Sources */ = {isa = PBXBuildFile; fileRef = 63E8670E175953E500135D0A /* dexterSinister.c */; };
@@ -14,7 +15,6 @@
 		2ADB64341AFAA6A100DFEBF7 /* LCD.c in Sources */ = {isa = PBXBuildFile; fileRef = 63E867111759547A00135D0A /* LCD.c */; };
 		2ADB64351AFAA6A500DFEBF7 /* rtc.c in Sources */ = {isa = PBXBuildFile; fileRef = 63E86717175A739500135D0A /* rtc.c */; };
 		2ADB64361AFAA6A900DFEBF7 /* msp430.c in Sources */ = {isa = PBXBuildFile; fileRef = 63E8671E175A746F00135D0A /* msp430.c */; };
-		2ADB64381AFAB43100DFEBF7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2ADB64371AFAB43100DFEBF7 /* Images.xcassets */; };
 		6302D24F17567875006961E3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6302D24E17567875006961E3 /* UIKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		6302D25117567875006961E3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6302D25017567875006961E3 /* Foundation.framework */; };
 		6302D25317567875006961E3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6302D25217567875006961E3 /* CoreGraphics.framework */; };
@@ -71,7 +71,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2ADB64371AFAB43100DFEBF7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		2A77DCE21B03EF420042EDA7 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		6302D24B17567875006961E3 /* f91w.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = f91w.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6302D24E17567875006961E3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6302D25017567875006961E3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -224,8 +224,8 @@
 				6302D26917567875006961E3 /* MainStoryboard_iPad.storyboard */,
 				6302D26C17567875006961E3 /* f91wViewController.h */,
 				6302D26D17567875006961E3 /* f91wViewController.m */,
-				2ADB64371AFAB43100DFEBF7 /* Images.xcassets */,
 				6302D25517567875006961E3 /* Supporting Files */,
+				2A77DCE21B03EF420042EDA7 /* Media.xcassets */,
 			);
 			path = f91w;
 			sourceTree = "<group>";
@@ -438,9 +438,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2ADB64381AFAB43100DFEBF7 /* Images.xcassets in Resources */,
 				6302D25917567875006961E3 /* InfoPlist.strings in Resources */,
 				6302D26117567875006961E3 /* Default.png in Resources */,
+				2A77DCE31B03EF420042EDA7 /* Media.xcassets in Resources */,
 				6302D26317567875006961E3 /* Default@2x.png in Resources */,
 				6302D26517567875006961E3 /* Default-568h@2x.png in Resources */,
 				6302D26817567875006961E3 /* MainStoryboard_iPhone.storyboard in Resources */,

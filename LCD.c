@@ -353,7 +353,7 @@ const char dateBSegs[8] =
   seg6, //c 2
   seg2, //d 3
   seg2, //e 4
-  seg0, //f  5
+  seg0, //f 5
   seg1, //g 6
 };
 
