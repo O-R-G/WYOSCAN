@@ -15,6 +15,8 @@
 		2ADB64341AFAA6A100DFEBF7 /* LCD.c in Sources */ = {isa = PBXBuildFile; fileRef = 63E867111759547A00135D0A /* LCD.c */; };
 		2ADB64351AFAA6A500DFEBF7 /* rtc.c in Sources */ = {isa = PBXBuildFile; fileRef = 63E86717175A739500135D0A /* rtc.c */; };
 		2ADB64361AFAA6A900DFEBF7 /* msp430.c in Sources */ = {isa = PBXBuildFile; fileRef = 63E8671E175A746F00135D0A /* msp430.c */; };
+		2AE49B7F1B0931F500BADC8B /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2AE49B7E1B0931F500BADC8B /* Storyboard.storyboard */; };
+		2AE49B831B09415500BADC8B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AE49B821B09415500BADC8B /* Media.xcassets */; };
 		6302D24F17567875006961E3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6302D24E17567875006961E3 /* UIKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		6302D25117567875006961E3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6302D25017567875006961E3 /* Foundation.framework */; };
 		6302D25317567875006961E3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6302D25217567875006961E3 /* CoreGraphics.framework */; };
@@ -72,6 +74,8 @@
 
 /* Begin PBXFileReference section */
 		2A77DCE21B03EF420042EDA7 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		2AE49B7E1B0931F500BADC8B /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		2AE49B821B09415500BADC8B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		6302D24B17567875006961E3 /* f91w.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = f91w.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6302D24E17567875006961E3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6302D25017567875006961E3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -287,6 +291,8 @@
 				63E8673F175E43BF00135D0A /* f91wAppDelegate.m */,
 				63E86741175E43C000135D0A /* MainMenu.xib */,
 				63E86733175E43BF00135D0A /* Supporting Files */,
+				2AE49B7E1B0931F500BADC8B /* Storyboard.storyboard */,
+				2AE49B821B09415500BADC8B /* Media.xcassets */,
 			);
 			path = f91w_osx;
 			sourceTree = "<group>";
@@ -460,7 +466,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AE49B831B09415500BADC8B /* Media.xcassets in Resources */,
 				63E86737175E43BF00135D0A /* InfoPlist.strings in Resources */,
+				2AE49B7F1B0931F500BADC8B /* Storyboard.storyboard in Resources */,
 				63E8673D175E43BF00135D0A /* Credits.rtf in Resources */,
 				63E86743175E43C000135D0A /* MainMenu.xib in Resources */,
 			);
@@ -707,19 +715,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: David Reinfurt (8P4R255KRN)";
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "f91w/f91w-Prefix.pch";
 				INFOPLIST_FILE = "f91w/f91w-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "d7866188-fdfd-422e-9e16-a326b6967f72";
+				VALID_ARCHS = "armv7 arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -729,19 +738,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: O-R-G inc.";
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "f91w/f91w-Prefix.pch";
 				INFOPLIST_FILE = "f91w/f91w-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ae81be99-baf0-4c7e-bb23-be7b8d770692";
+				VALID_ARCHS = "armv7 arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
