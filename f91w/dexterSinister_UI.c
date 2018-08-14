@@ -3,7 +3,7 @@
 #include "dexterSinister.h"
 #include "dexterSinister_UI.h"
 #include "LCD.h"
-#include "RTC.h"
+#include "rtc.h"
 
 
 
@@ -112,7 +112,7 @@ void UI_showInfoSnake(void){
           infoAnimMask = (infoAnimMask >> 1) | infoAnimMask;
        }
        //infoAnimMask = (infoAnimMask >> 1) ^ infoAnimMask;
-       if (infoAnimMask == 0xFF) infoAnimMask = ~0x80;
+       if (infoAnimMask == 0xFF) infoAnimMask = (unsigned char)~0x80;
        if (infoAnimMask == 0) infoAnimMask = 0x80;
   
        //infoAnimMask = (infoAnimMask >> 1) | (infoAnimMask << 7);

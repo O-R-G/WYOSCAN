@@ -16,7 +16,7 @@
     float displayHeight;
     bool hzSetMode;
     
-    __weak IBOutlet UILabel *hzLabel2;
+//    __weak IBOutlet UILabel *hzLabel2;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *hzLabel2;

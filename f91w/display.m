@@ -64,15 +64,14 @@ float strokeScale = 1;
     self.frame = self.superview.bounds;
 }
 
-- (void)drawRect:(CGRect*)bounds
+- (void)drawRect:(CGRect)rect
 {
     [self updateDisplay];
-    
 }
 
 - (void)updateDisplay
 {
-    CGContextRef context = UIGraphicsGetCurrentContext();
+//    CGContextRef context = UIGraphicsGetCurrentContext();
     
     ColorClassName* stroke = [ColorClassName colorWithRed: 0 green: 0 blue: 0 alpha: 1];
     ColorClassName* onFill = [ColorClassName colorWithRed: 1 green: 1 blue: 1 alpha: 1];

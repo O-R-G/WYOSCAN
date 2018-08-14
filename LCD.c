@@ -358,7 +358,7 @@ const char dateBSegs[8] =
 };
 
 
-unsigned char *segOrderPtr = &segOrder[0];
+const unsigned char *segOrderPtr = &segOrder[0];
 
 
 

@@ -12,7 +12,7 @@
 #import "display.h"
 #import "dexterSinister.h"
 #import "dexterSinister_UI.h"
-#import "RTC.h"
+#import "rtc.h"
 
 @implementation f91w
 
