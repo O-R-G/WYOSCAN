@@ -1,34 +1,60 @@
 //
-//  display.m
-//  f91w
+//  FaceScene.m
+//  watch WatchKit Extension
 //
-//  Created by e on 6/3/13.
-//  Copyright (c) 2013 HALMOS. All rights reserved.
+//  Created by Wei Wang on 2022/1/27.
+//  Copyright © 2022 HALMOS. All rights reserved.
 //
 
+#import <WatchKit/WatchKit.h>
+#import <TargetConditionals.h>
+#import <UIKit/UIKit.h>
+#import "msp430.h"
+#import "LCD.h"
+#import "dexterSinister.h"
+#import "dexterSinister_UI.h"
+#import "rtc.h"
+#import "FaceScene.h"
 
+#define ImageClassName UIImage
+#define PathClassName UIBezierPath
+#define ColorClassName UIColor
 
-#import "display.h"
+/*
+    rtc.h
+*/
 
-
-
-@implementation display
-
-
+@implementation FaceScene
 
 float strokeScale = 1;
+//float aspect = 740/230;//360;
+float aspect = 740/230;//360;
+float scale;
+float frameWidth;
 
+@synthesize counter;
+@synthesize size;
+@synthesize wyoscanArea;
+@synthesize dotRect;
+@synthesize dotPoint;
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    
+/*
+    @implementation display from f91w.m
+*/
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    NSLog(@"initWithCoder");
+    NSMutableArray * memMap;
+    float extraHeight = size.height - displayHeight;
+    CGRect displayArea = CGRectMake(0,extraHeight/2, displayWidth , displayHeight);
+    self = [super initWithCoder:coder];
     if (self){
-        
-        float frameWidth = frame.size.width;
-        float scale = frameWidth/740.f;
+        wyoscanArea = [WKInterfaceDevice currentDevice].screenBounds;
+        size = wyoscanArea.size;
+        frameWidth = displayArea.size.width;
+        scale = frameWidth/740.f;
         strokeScale = scale;
-        
+
         memMap = [[NSMutableArray alloc] initWithCapacity:12];
         [memMap addObject:[[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null], nil]];         // byte 0
         [memMap addObject:[[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null], nil]];         // byte 1
@@ -36,47 +62,46 @@ float strokeScale = 1;
         [memMap addObject:[[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null], nil]];        // byte 3
         [memMap addObject:[[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null], nil]];        // byte 4
         [memMap addObject:[[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null], nil]];        // byte 5
-         [memMap addObject:[[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null], nil]];         // byte 6
-         [memMap addObject:[[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null], nil]];        // byte 7
-         [memMap addObject:[[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null], nil]];         // byte 8
-         [memMap addObject:[[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null], nil]];         // byte 9
-         [memMap addObject:[[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null], nil]];        // byte 10
-         [memMap addObject:[[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null], nil]];         // byte 11
+        [memMap addObject:[[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null], nil]];         // byte 6
+        [memMap addObject:[[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null], nil]];        // byte 7
+        [memMap addObject:[[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null], nil]];         // byte 8
+        [memMap addObject:[[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null], nil]];         // byte 9
+        [memMap addObject:[[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null], nil]];        // byte 10
+        [memMap addObject:[[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null], nil]];         // byte 11
 
         [self setBackgroundColor:[UIColor blackColor]];
-        
-        [self buildDisplay:scale x:20 y:20];
+//        [self buildDisplay:scale x:20 y:20];
+//        [self addSubview: self];
+        [self initScene:scale x:20 y:20];
+        self.delegate = self;
     }
+    
+//    [self initScene];
+//    [self buildDisplay];
     return self;
 }
 
-- (void)viewDidLoad
-{
-    // View setup
-    
-    // Ensure the view will keep filling its parent
-    // when the parent view resizes (e.g. device rotation).
-       
-}
-- (void)viewWillAppear:(BOOL)animated
-{
-    // Force to fill the parent once the view is about to be shown.
-    self.frame = self.superview.bounds;
-}
-
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    // Force to fill the parent once the view is about to be shown.
+//    self.frame = self.superview.bounds;
+//}
 - (void)drawRect:(CGRect)rect
 {
-    [self updateDisplay];
+    NSLog(@"drawRect");
+    [self update];
 }
 
-- (void)updateDisplay
-{
 
-//    CGContextRef context = UIGraphicsGetCurrentContext();
+- (void)update
+{
+//    updateFrame
+    NSLog(@"update");
     
     ColorClassName* stroke = [ColorClassName colorWithRed: 0 green: 0 blue: 0 alpha: 1];
     ColorClassName* onFill = [ColorClassName colorWithRed: 1 green: 1 blue: 1 alpha: 1];
     ColorClassName* offFill = [ColorClassName colorWithRed: .1 green: .1 blue: .1 alpha: 1];
+    
     
     // loop through LCDMEM and see which bits are on
     
@@ -86,6 +111,7 @@ float strokeScale = 1;
         unsigned char myByte = LCDMEM[i];
         
         // loop through the bits
+        NSLog(@"1");
         for(int j = 0; j<8; j++){
             
             // make sure we have a path defined for this memory address
@@ -104,12 +130,14 @@ float strokeScale = 1;
                     
                     PathClassName* seg = [[memMap objectAtIndex:i]objectAtIndex:j];
                     [onFill setFill];
+                    NSLog(@">0 2");
                     [seg fill];
                     [stroke setStroke];
                     seg.lineWidth = 2;
                     [seg stroke];
                     
                 } else {
+                    NSLog(@"else 2");
                     // bit is not set
                     PathClassName* seg = [[memMap objectAtIndex:i]objectAtIndex:j];
                     [offFill setFill];
@@ -122,21 +150,20 @@ float strokeScale = 1;
                 }
             } else {
                 // null object
+                NSLog(@"null");
                 
             }
             
                         
         }// j
     }// i
-    
-    //[self setNeedsDisplay];
-    //[self setNeedsLayout];
-    
+    [self drawFrame];
 }
 
-- (void) buildDisplay:(float)scale x:(float)xOffset y:(float)yOffset
+- (void) initScene:(float)scale x:(float)xOffset y:(float)yOffset
 {
-  
+    //    buildDisplay
+    NSLog(@"initScene");
     // HOUR DIGIT A
     PathClassName* HAsegA = [self makeLargeHSeg:scale x:scale*(10+xOffset) y:scale*(yOffset) ];
     PathClassName* HAsegB = [self makeLargeVSeg:scale x:scale*(80+xOffset) y:scale*(10+yOffset) ];
@@ -302,7 +329,7 @@ float strokeScale = 1;
     [[memMap objectAtIndex:2]replaceObjectAtIndex:4 withObject:SBsegE];
     [[memMap objectAtIndex:2]replaceObjectAtIndex:1 withObject:SBsegF];
     [[memMap objectAtIndex:2]replaceObjectAtIndex:5 withObject:SBsegG];
-   }
+}
 
 
 - (PathClassName*) makeLargeHSeg:(float)scale x:(float)xOffset y:(float)yOffset
@@ -377,6 +404,172 @@ float strokeScale = 1;
     [bezierPath closePath];
     bezierPath.miterLimit = 4;
     return bezierPath;
+}
+
+
+
+- (void) drawFrame {
+    NSLog(@"drawFrame");
+//    int g;
+//
+    [self addChild: [self dotNode]];
+//
+//    // update values for next frame
+//    theta += dtheta;
+//    dotPoint.x = scalar * sin(xFactor*theta);   // does not include + size.width / 2;
+//    dotPoint.y = scalar * sin(yFactor*theta);   // and + size.height / 2;
+
+    /*
+     * source: http://stackoverflow.com/questions/9620324/how-to-calculate-the-period-of-a-lissajous-curve
+
+     * the frequency of the lissajous is GCF(xFactor, yFactor) / 2*PI
+     * but, this is assuming that one second = one second, which is not always
+     * when we change how much to jump ahead on the curve each time. we start
+     * out incrementing t by 1/30 (the frame rate) but allow the user to
+     * increment t by a greater or lesser amount, thus we have to multiply
+     * by the dtheta (ie, dt) adjustment and divide by the frame rate
+     *
+     * nb that it is not guaranteed that the lissajous even *has* a frequency
+     * (ok, well, technically, yes, it is guaranteed because xFactor and yFactor
+     * are both floating-point numbers and therefore xFactor / yFactor is
+     * is rational so at some point the curve must close, but if we do not
+     * truncate them (by multiplying by hzGranularity, eg 10^3 and casting to
+     * int) the curve might not close for a lonnnnnng time, and still in the
+     * case of truncating to the first three decimal places, will only close
+     * after approx 10^3 seconds.
+     */
+//    g = gcf((int)(hzGranularity*xFactor), (int)(hzGranularity*yFactor));
+//    mHz = dtheta*frameRate*((float)g)/M_2_PI*pow(10, orderOfMagnitude);
+//    counter++;
+}
+
+- (SKSpriteNode *)dotNode {
+
+    SKSpriteNode *dotNode = [SKSpriteNode spriteNodeWithImageNamed:@"dot-100.png"];
+    dotNode.size = dotRect.size;
+    dotNode.position = dotPoint;
+
+    return dotNode;
+}
+
+
+
+
+
+//- (id) initWithDisplay:(display*)aDisplay
+//{
+//    if (self = [super init]){
+//        f91wDisplay = aDisplay;
+//        self.f91wSpeed = 2;
+//        [self initTimers];
+//         ds_init();
+//    }
+//    return self;
+//}
+
+- (void) initTimers
+{
+    
+    msp430Timer = [NSTimer timerWithTimeInterval:1.f/21.f
+                                    target:self
+                                  selector:@selector(msp430TimerCallback)
+                                  userInfo:nil
+                                   repeats:YES];
+    
+    [[NSRunLoop currentRunLoop] addTimer:msp430Timer forMode:NSDefaultRunLoopMode];
+    
+    
+    /*displayTimer = [NSTimer timerWithTimeInterval:kScheduledTimerInSeconds
+                                          target:self
+                                        selector:@selector(displayTimerCallback)
+                                        userInfo:nil
+                                         repeats:YES];
+    
+    [[NSRunLoop currentRunLoop] addTimer:displayTimer forMode:NSDefaultRunLoopMode];*/
+    
+    
+}
+
+- (void) msp430TimerCallback
+{
+
+  
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:[NSDate date]];
+    
+    NSInteger hour= [components hour];
+    NSInteger minute = [components minute];
+    NSInteger second = [components second];
+    
+    // run the c code
+    RTCSEC = int2bcd((char)second);
+    RTCMIN = int2bcd((char)minute);
+    RTCHOUR = int2bcd((char)hour);
+
+    ds_animateRTC(0,0,0);
+//    [self update];
+    
+}
+- (void) displayTimerCallback
+{
+//    [self update];
+    
+}
+
+/* Method to read the LCDMEM array and update the LCD emulation */
+//- (void) updateDisplay
+//{
+//
+//    [f91wDisplay setNeedsDisplay];
+//
+//}
+
+
+- (float) f91wSpeed
+{
+    return f91wSpeed;
+
+}
+- (void) setF91wSpeed:(float)newSpeed
+{
+    //NSLog(@"New Speed: %f", newSpeed);
+    f91wSpeed = newSpeed;
+    f91wHz = 1.0f/f91wSpeed;
+    
+    NSTimeInterval timerLength = 1.0f/(f91wHz*21.0f);
+     NSLog(@"New Hz: %f", f91wHz);
+     NSLog(@"New tl: %f", (float)timerLength);
+    
+    [msp430Timer invalidate];
+    msp430Timer = nil;
+    
+    
+    msp430Timer = [NSTimer timerWithTimeInterval:timerLength target:self selector:@selector(msp430TimerCallback) userInfo:nil repeats:YES];
+    
+    [[NSRunLoop currentRunLoop] addTimer:msp430Timer forMode:NSDefaultRunLoopMode];
+    
+   
+}
+
+
+- (NSString *)intToBinary:(int)number
+{
+    // Number of bits
+    //int bits =  sizeof(number) * 8;
+    int bits= 8;
+    
+    // Create mutable string to hold binary result
+    NSMutableString *binaryStr = [NSMutableString string];
+    
+    // For each bit, determine if 1 or 0
+    // Bitwise shift right to process next number
+    for (; bits > 0; bits--, number >>= 1)
+    {
+        // Use bitwise AND with 1 to get rightmost bit
+        // Insert 0 or 1 at front of the string
+        [binaryStr insertString:((number & 1) ? @"1" : @"0") atIndex:0];
+    }
+    
+    return (NSString *)binaryStr;
 }
 
 @end
