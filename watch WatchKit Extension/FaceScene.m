@@ -16,9 +16,6 @@
 #import "rtc.h"
 #import "FaceScene.h"
 
-#define ImageClassName UIImage
-#define PathClassName UIBezierPath
-#define ColorClassName UIColor
 
 /*
     rtc.h
@@ -75,6 +72,16 @@ float frameWidth;
         [self initScene:scale x:20 y:20];
         self.delegate = self;
     }
+
+//    SKShapeNode *ball = [[SKShapeNode alloc] init];
+//    CGMutablePathRef myPath = CGPathCreateMutable();
+//    CGPathAddArc(myPath, NULL, 0,0, 15, 0, M_PI*2, YES);
+//    ball.path = myPath;
+//
+//    ball.lineWidth = 1.0;
+//    ball.fillColor = [SKColor blueColor];
+//    ball.strokeColor = [SKColor whiteColor];
+//    ball.glowWidth = 0.5;
     
 //    [self initScene];
 //    [self buildDisplay];
@@ -86,23 +93,31 @@ float frameWidth;
 //    // Force to fill the parent once the view is about to be shown.
 //    self.frame = self.superview.bounds;
 //}
-- (void)drawRect:(CGRect)rect
-{
-    NSLog(@"drawRect");
-    [self update];
-}
+//- (void)drawRect:(CGRect)rect
+//{
+//    NSLog(@"drawRect");
+//    [self update];
+//}
 
 
-- (void)update
+- (void)update:(NSTimeInterval)currentTime forScene:(SKScene *)scene
 {
-//    updateFrame
+//    updateFrame / updateDisplay
     NSLog(@"update");
     
     ColorClassName* stroke = [ColorClassName colorWithRed: 0 green: 0 blue: 0 alpha: 1];
     ColorClassName* onFill = [ColorClassName colorWithRed: 1 green: 1 blue: 1 alpha: 1];
     ColorClassName* offFill = [ColorClassName colorWithRed: .1 green: .1 blue: .1 alpha: 1];
     
-    
+    SKShapeNode *ball = [[SKShapeNode alloc] init];
+    CGMutablePathRef myPath = CGPathCreateMutable();
+    CGPathAddArc(myPath, NULL, 0,0, 30, 0, M_PI*2, YES);
+    ball.path = myPath;
+
+    ball.lineWidth = 1.0;
+    ball.fillColor = [SKColor blueColor];
+    ball.strokeColor = [SKColor whiteColor];
+    ball.glowWidth = 0.5;
     // loop through LCDMEM and see which bits are on
     
     // loop through the bytes
@@ -111,7 +126,7 @@ float frameWidth;
         unsigned char myByte = LCDMEM[i];
         
         // loop through the bits
-        NSLog(@"1");
+        
         for(int j = 0; j<8; j++){
             
             // make sure we have a path defined for this memory address
@@ -119,7 +134,7 @@ float frameWidth;
                 
                 // pull the bit
                 unsigned char myBit = myByte & (1<<j);
-                
+//                NSLog(@"%d", myBit);
                 /*if((i == 8) && (j == 1)){
                     NSLog(@"secs: %d", (int)myBit);
                     
@@ -130,23 +145,24 @@ float frameWidth;
                     
                     PathClassName* seg = [[memMap objectAtIndex:i]objectAtIndex:j];
                     [onFill setFill];
-                    NSLog(@">0 2");
                     [seg fill];
                     [stroke setStroke];
                     seg.lineWidth = 2;
                     [seg stroke];
                     
                 } else {
-                    NSLog(@"else 2");
+                    
                     // bit is not set
                     PathClassName* seg = [[memMap objectAtIndex:i]objectAtIndex:j];
+                    NSString *pathString = [NSString stringWithFormat:@"%@", seg];
+                    NSLog(@"%@", pathString);
                     [offFill setFill];
                     [seg fill];
                     [stroke setStroke];
                     seg.lineWidth = 2;
                     [seg stroke];
-
                     
+
                 }
             } else {
                 // null object
@@ -514,15 +530,6 @@ float frameWidth;
 //    [self update];
     
 }
-
-/* Method to read the LCDMEM array and update the LCD emulation */
-//- (void) updateDisplay
-//{
-//
-//    [f91wDisplay setNeedsDisplay];
-//
-//}
-
 
 - (float) f91wSpeed
 {
