@@ -1,0 +1,51 @@
++ list schemes, targets
+
+    > xcodebuild -list -project f91w.xcodeproj
+
++ set environment
+
+    * https://stackoverflow.com/questions/31179706/how-can-i-launch-the-ios-simulator-from-terminal
+
+  get device list
+
+    > xcrun simctl list
+    > xcrun simctl list devices available
+
+  get bundleid (run after set $BUNDLEPATH)
+
+    > mdls -name kMDItemCFBundleIdentifier -r $BUNDLEPATH
+
+  phone
+
+    > SCHEME=multi
+    > DEVICEID=A736F7FD-1EC9-4EB3-9F88-33A12B76E96F
+    > DESTINATION='platform=iOS Simulator,name=iPhone 11,OS=15.0'
+    > BUNDLEPATH=/Users/reinfurt/Library/Developer/Xcode/DerivedData/f91w-dunrpptkgxpbdabkxsafcibwiwet/Build/Products/Debug-watchsimulator/watch.app
+    > BUNDLEID=com.o-r-g.f91w
+
+  watch
+
+    > SCHEME=watch
+    > DEVICEID=EF4AF95D-CC52-42EF-9F2F-B74DAD317DDE
+    > DESTINATION='platform=watchsimulator,name=Apple Watch Series 7 - 45mm,OS=8.3'
+    > BUNDLEPATH=/Users/reinfurt/Library/Developer/Xcode/DerivedData/f91w-dunrpptkgxpbdabkxsafcibwiwet/Build/Products/Debug-watchsimulator/watch.app
+    > BUNDLEID=com.o-r-g.f91w.watchkitapp
+
++ start simulator 
+
+    > /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/Contents/MacOS/Simulator -CurrentDeviceUDID $DEVICEID; 
+
++ build
+
+    > xcodebuild -scheme $SCHEME -destination $DESTINATION build
+
++ build, stop, install, run
+
+    > xcodebuild -scheme $SCHEME build
+    > xcrun simctl terminate $DEVICEID $BUNDLEID
+    > xcrun simctl install $DEVICEID $BUNDLEPATH
+    > xcrun simctl launch $DEVICEID $BUNDLEID
+    
+    one-liner
+
+	> xcodebuild -scheme $SCHEME -destination $DESTINATION build; xcrun simctl terminate $DEVICEID $BUNDLEID;xcrun simctl install $DEVICEID $BUNDLEPATH; xcrun simctl launch $DEVICEID $BUNDLEID

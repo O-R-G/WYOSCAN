@@ -151,6 +151,9 @@ float frameWidth;
     for(int i = 0; i < 12; i++){
         // get the byte
         unsigned char myByte = LCDMEM[i];
+
+        // debug
+        // NSLog(@"----------------> %c", myByte);
         
         // loop through the bits
         
@@ -161,7 +164,7 @@ float frameWidth;
                 
                 // pull the bit
                 unsigned char myBit = myByte & (1<<j);
-//                NSLog(@"%d", myBit);
+//               NSLog(@"%d", myBit);
                 /*if((i == 8) && (j == 1)){
                     NSLog(@"secs: %d", (int)myBit);
                     
@@ -169,6 +172,9 @@ float frameWidth;
 //                NSLog(@"i = %d j =%d ", i, j);
                 
 //                NSLog(@"context");
+
+
+
                 if(myBit > 0){
                     // bit is set
                     
@@ -180,19 +186,29 @@ float frameWidth;
 //                    [stroke setStroke];
 //                    seg.lineWidth = 2;
 //                    [seg stroke];
+
+NSLog(@"** BIT SET **");
+NSLog(@"seg: %@", seg);
+
+
+
                     
                 } else {
 //                  // bit is not set
 //                    PathClassName* seg = [[memMap objectAtIndex:i]objectAtIndex:j];
                     NSMutableArray* seg = [[memMap objectAtIndex:i]objectAtIndex:j];
-//                    [self drawMyLine:seg];
-                    [self drawMyLineOff:seg];
+                    [self drawMyLine:seg];
+                    // [self drawMyLineOff:seg];
 //                    [offFill setFill];
-//                    [seg fill];
+//                     [seg fill];
 //                    [stroke setStroke];
 //                    seg.lineWidth = 2;
 //                    [seg stroke];
 //
+// NSLog(seg);
+NSLog(@"** BIT NOT SET **");
+// NSLog(@"seg: %@", seg);
+
                 }
                 
                 
@@ -954,7 +970,7 @@ float frameWidth;
     RTCHOUR = int2bcd((char)hour);
 
     ds_animateRTC(0,0,0);
-//    [self update];
+   // [self update];
     
 }
 - (void) displayTimerCallback

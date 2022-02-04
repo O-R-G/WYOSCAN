@@ -72,7 +72,7 @@ float strokeScale = 1;
 - (void)updateDisplay
 {
 
-//    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextRef context = UIGraphicsGetCurrentContext();
     
     ColorClassName* stroke = [ColorClassName colorWithRed: 0 green: 0 blue: 0 alpha: 1];
     ColorClassName* onFill = [ColorClassName colorWithRed: 1 green: 1 blue: 1 alpha: 1];
@@ -84,7 +84,10 @@ float strokeScale = 1;
     for(int i = 0; i < 12; i++){
         // get the byte
         unsigned char myByte = LCDMEM[i];
-        
+      
+        // debug
+        // NSLog(@"%c", myByte);
+
         // loop through the bits
         for(int j = 0; j<8; j++){
             
@@ -129,8 +132,8 @@ float strokeScale = 1;
         }// j
     }// i
     
-    //[self setNeedsDisplay];
-    //[self setNeedsLayout];
+    [self setNeedsDisplay];
+    [self setNeedsLayout];
     
 }
 

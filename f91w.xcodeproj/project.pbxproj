@@ -1458,7 +1458,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.o-r-g.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				VALID_ARCHS = "armv7 arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1485,7 +1484,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.o-r-g.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				VALID_ARCHS = "armv7 arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
