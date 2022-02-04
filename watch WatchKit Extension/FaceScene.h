@@ -80,7 +80,7 @@ static const NSTimeInterval  kScheduledTimerInSeconds      = 1.0f/21.0f;
 @property (readonly) int counter;
 @property (readonly) CGRect dotRect;
 @property (readonly) CGPoint dotPoint;
-@property CGContextRef context;
+//@property CGContextRef context;
 /*
     f91w:NSObject in f91w.h
 */
@@ -97,7 +97,7 @@ static const NSTimeInterval  kScheduledTimerInSeconds      = 1.0f/21.0f;
 //- (void) updateDisplay;
 - (NSString *)intToBinary:(int)Number;
 
-@property (weak, nonatomic) IBOutlet WKInterfaceImage* myImage;
+//@property (weak, nonatomic) IBOutlet WKInterfaceImage* myImage;
 /*
     f91wViewController:UIViewController in f91wViewController.h
 */

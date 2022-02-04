@@ -34,8 +34,8 @@ float frameWidth;
 @synthesize wyoscanArea;
 @synthesize dotRect;
 @synthesize dotPoint;
-@synthesize myImage;
-@synthesize context;
+//@synthesize myImage;
+//@synthesize context;
 
 /*
     @implementation display from f91w.m
@@ -138,12 +138,12 @@ float frameWidth;
 //    updateFrame / updateDisplay
 //    NSLog(@"update");
     
-    ColorClassName* stroke = [ColorClassName colorWithRed: 0 green: 0 blue: 0 alpha: 1];
-    ColorClassName* onFill = [ColorClassName colorWithRed: 1 green: 1 blue: 1 alpha: 1];
-    ColorClassName* offFill = [ColorClassName colorWithRed: .1 green: .1 blue: .1 alpha: 1];
+//    ColorClassName* stroke = [ColorClassName colorWithRed: 0 green: 0 blue: 0 alpha: 1];
+//    ColorClassName* onFill = [ColorClassName colorWithRed: 1 green: 1 blue: 1 alpha: 1];
+//    ColorClassName* offFill = [ColorClassName colorWithRed: .1 green: .1 blue: .1 alpha: 1];
     
-    UIGraphicsBeginImageContext(size);
-    context = UIGraphicsGetCurrentContext();
+//    UIGraphicsBeginImageContext(size);
+//    context = UIGraphicsGetCurrentContext();
 
     // loop through LCDMEM and see which bits are on
     
@@ -205,7 +205,7 @@ float frameWidth;
                         
         }// j
     }// i
-    UIGraphicsEndImageContext();
+//    UIGraphicsEndImageContext();
 }
 
 - (void) initScene:(float)scale x:(float)xOffset y:(float)yOffset
@@ -762,7 +762,7 @@ float frameWidth;
 //    CGContextRelease(contextt);
     UIGraphicsEndImageContext();
     
-    [self.myImage setImage:uiimage];
+//    [self.myImage setImage:uiimage]; doesn't need image here
 }
 
 - (void)drawMyCircle {
@@ -826,19 +826,19 @@ float frameWidth;
         [[inputArr objectAtIndex:5] CGPointValue],
         [[inputArr objectAtIndex:6] CGPointValue]
     };
-    SKShapeNode *circle = [[SKShapeNode alloc] init];
+    SKShapeNode *line = [[SKShapeNode alloc] init];
      
     CGMutablePathRef myPath = CGPathCreateMutable();
     CGPathAddLines(myPath, NULL, pointsFromNSArray, 7);
 //    CGPathAddLineToPoint(myPath, NULL, 50,50);
-    circle.path = myPath;
+    line.path = myPath;
      
 //    circle.lineWidth = 2.0;
-    circle.fillColor = [SKColor blackColor];
+    line.fillColor = [SKColor blackColor];
 //    circle.strokeColor = [SKColor whiteColor];
 //    circle.glowWidth = 0.5;
     
-    [self addChild:circle];
+    [self addChild:line];
 }
 
 - (PathClassName*) makeSecDot:(float)scale x:(float)xOffset y:(float)yOffset
