@@ -34,24 +34,28 @@ float frameWidth;
 @synthesize wyoscanArea;
 @synthesize dotRect;
 @synthesize dotPoint;
+@synthesize myImage;
+@synthesize context;
 
 /*
     @implementation display from f91w.m
 */
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
+//- (id)initWithFrame:(CGRect)frame {
     NSLog(@"initWithCoder");
-    NSMutableArray * memMap;
     float extraHeight = size.height - displayHeight;
     CGRect displayArea = CGRectMake(0,extraHeight/2, displayWidth , displayHeight);
     self = [super initWithCoder:coder];
     if (self){
         wyoscanArea = [WKInterfaceDevice currentDevice].screenBounds;
-        size = wyoscanArea.size;
-        frameWidth = displayArea.size.width;
+        size = self.size;
+        self.backgroundColor = [SKColor blackColor];
+        frameWidth = size.width;
         scale = frameWidth/740.f;
+//        scale = 1;
         strokeScale = scale;
-
+        
         memMap = [[NSMutableArray alloc] initWithCapacity:12];
         [memMap addObject:[[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null], nil]];         // byte 0
         [memMap addObject:[[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null], nil]];         // byte 1
@@ -65,24 +69,33 @@ float frameWidth;
         [memMap addObject:[[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null], nil]];         // byte 9
         [memMap addObject:[[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null], nil]];        // byte 10
         [memMap addObject:[[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null], nil]];         // byte 11
+        
+//        memMap2 = [[NSMutableArray alloc] initWithCapacity:12];
 
-        [self setBackgroundColor:[UIColor blackColor]];
+//        [self setBackgroundColor:[UIColor blackColor]];
 //        [self buildDisplay:scale x:20 y:20];
 //        [self addSubview: self];
         [self initScene:scale x:20 y:20];
+//        SKShapeNode *ball = [[SKShapeNode alloc] init];
+//        CGMutablePathRef myPath = CGPathCreateMutable();
+//        CGPathAddArc(myPath, NULL, 0,0, 15, 0, M_PI*2, YES);
+//        ball.path = myPath;
+//        ball.lineWidth = 1.0;
+//        ball.fillColor = [SKColor blueColor];
+//        ball.strokeColor = [SKColor whiteColor];
+//        ball.glowWidth = 0.5;
+//        [self addChild:ball];
+//        PathClassName* seg = [[memMap objectAtIndex:6]objectAtIndex:3];
+//        ball.path = seg.CGPath;
+//        ball.fillColor = [SKColor blueColor];
+//        [self drawMyCircle];
+//        [self drawMyLine];
         self.delegate = self;
     }
 
-//    SKShapeNode *ball = [[SKShapeNode alloc] init];
-//    CGMutablePathRef myPath = CGPathCreateMutable();
-//    CGPathAddArc(myPath, NULL, 0,0, 15, 0, M_PI*2, YES);
-//    ball.path = myPath;
-//
-//    ball.lineWidth = 1.0;
-//    ball.fillColor = [SKColor blueColor];
-//    ball.strokeColor = [SKColor whiteColor];
-//    ball.glowWidth = 0.5;
     
+//    SKShapeNode *ball = [ SKShapeNode shapeNodeWithCircleOfRadius:10.0 ];
+   
 //    [self initScene];
 //    [self buildDisplay];
     return self;
@@ -99,25 +112,39 @@ float frameWidth;
 //    [self update];
 //}
 
-
+//-(void)setupLayer:(NSString *)layerName
+//{
+//    SKCropNode *myLayer = [SKCropNode node];
+//    myLayer.name = layerName;
+//    SKSpriteNode *tick = [SKSpriteNode spriteNodeWithColor:[SKColor greenColor] size:CGSizeMake(1, shortTickHeight)];
+//
+//    tick.position = CGPointZero;
+//
+//
+//}
+-(void)drawCircle{
+    NSLog(@"circle");
+    SKShapeNode *ball = [[SKShapeNode alloc] init];
+    CGMutablePathRef myPath = CGPathCreateMutable();
+    CGPathAddArc(myPath, NULL, 0,0, 15, 0, M_PI*2, YES);
+    ball.path = myPath;
+    ball.lineWidth = 1.0;
+    ball.fillColor = [SKColor blueColor];
+    ball.strokeColor = [SKColor whiteColor];
+//    ball.glowWidth = 0.5;
+}
 - (void)update:(NSTimeInterval)currentTime forScene:(SKScene *)scene
 {
 //    updateFrame / updateDisplay
-    NSLog(@"update");
+//    NSLog(@"update");
     
     ColorClassName* stroke = [ColorClassName colorWithRed: 0 green: 0 blue: 0 alpha: 1];
     ColorClassName* onFill = [ColorClassName colorWithRed: 1 green: 1 blue: 1 alpha: 1];
     ColorClassName* offFill = [ColorClassName colorWithRed: .1 green: .1 blue: .1 alpha: 1];
     
-    SKShapeNode *ball = [[SKShapeNode alloc] init];
-    CGMutablePathRef myPath = CGPathCreateMutable();
-    CGPathAddArc(myPath, NULL, 0,0, 30, 0, M_PI*2, YES);
-    ball.path = myPath;
+    UIGraphicsBeginImageContext(size);
+    context = UIGraphicsGetCurrentContext();
 
-    ball.lineWidth = 1.0;
-    ball.fillColor = [SKColor blueColor];
-    ball.strokeColor = [SKColor whiteColor];
-    ball.glowWidth = 0.5;
     // loop through LCDMEM and see which bits are on
     
     // loop through the bytes
@@ -127,7 +154,7 @@ float frameWidth;
         
         // loop through the bits
         
-        for(int j = 0; j<8; j++){
+        for(int j = 0; j<7; j++){
             
             // make sure we have a path defined for this memory address
             if([[memMap objectAtIndex:i]objectAtIndex:j] != [NSNull null]){
@@ -139,44 +166,227 @@ float frameWidth;
                     NSLog(@"secs: %d", (int)myBit);
                     
                 }*/
+//                NSLog(@"i = %d j =%d ", i, j);
                 
+//                NSLog(@"context");
                 if(myBit > 0){
                     // bit is set
                     
-                    PathClassName* seg = [[memMap objectAtIndex:i]objectAtIndex:j];
-                    [onFill setFill];
-                    [seg fill];
-                    [stroke setStroke];
-                    seg.lineWidth = 2;
-                    [seg stroke];
+//                    PathClassName* seg = [[memMap objectAtIndex:i]objectAtIndex:j];
+                    NSMutableArray* seg = [[memMap objectAtIndex:i]objectAtIndex:j];
+                    [self drawMyLine:seg];
+//                    [onFill setFill];
+//                    [seg fill];
+//                    [stroke setStroke];
+//                    seg.lineWidth = 2;
+//                    [seg stroke];
                     
                 } else {
-                    
-                    // bit is not set
-                    PathClassName* seg = [[memMap objectAtIndex:i]objectAtIndex:j];
-                    NSString *pathString = [NSString stringWithFormat:@"%@", seg];
-                    NSLog(@"%@", pathString);
-                    [offFill setFill];
-                    [seg fill];
-                    [stroke setStroke];
-                    seg.lineWidth = 2;
-                    [seg stroke];
-                    
-
+//                  // bit is not set
+//                    PathClassName* seg = [[memMap objectAtIndex:i]objectAtIndex:j];
+                    NSMutableArray* seg = [[memMap objectAtIndex:i]objectAtIndex:j];
+//                    [self drawMyLine:seg];
+                    [self drawMyLineOff:seg];
+//                    [offFill setFill];
+//                    [seg fill];
+//                    [stroke setStroke];
+//                    seg.lineWidth = 2;
+//                    [seg stroke];
+//
                 }
+                
+                
             } else {
                 // null object
-                NSLog(@"null");
+//                NSLog(@"null");
                 
             }
             
                         
         }// j
     }// i
-    [self drawFrame];
+    UIGraphicsEndImageContext();
 }
 
 - (void) initScene:(float)scale x:(float)xOffset y:(float)yOffset
+{
+    //    buildDisplay
+    NSLog(@"initScene");
+    // HOUR DIGIT A
+    NSMutableArray* HAsegA = [self makeLargeHSegArr:scale x:scale*(10+xOffset) y:scale*(yOffset) ];
+    NSMutableArray* HAsegB = [self makeLargeVSegArr:scale x:scale*(80+xOffset) y:scale*(10+yOffset) ];
+    NSMutableArray* HAsegC = [self makeLargeVSegArr:scale x:scale*(80+xOffset) y:scale*(90+yOffset) ];
+    NSMutableArray* HAsegAD = [self makeLargeHSegArr:scale x:scale*(10+xOffset) y:scale*(160+yOffset) ];
+//    [HAsegAD appendPath:HAsegA]; // a and d are tied in this digit
+    NSMutableArray* HAsegE = [self makeLargeVSegArr:scale x:scale*(xOffset) y:scale*(90+yOffset) ];
+    NSMutableArray* HAsegF = [self makeLargeVSegArr:scale x:scale*(xOffset) y:scale*(10+yOffset) ];
+    NSMutableArray* HAsegG = [self makeLargeHSegArr:scale x:scale*(10+xOffset) y:scale*(80+yOffset) ];
+    /* memmap
+     09:1 - HAA
+     09:6 - HAB
+     09:4 - HAC
+     09:1 - HAD
+     09:0 - HAE
+     09:2 - HAF
+     09:5 - HAG
+     */
+    [[memMap objectAtIndex:9]replaceObjectAtIndex:1 withObject:HAsegAD];
+    [[memMap objectAtIndex:9]replaceObjectAtIndex:6 withObject:HAsegB];
+    [[memMap objectAtIndex:9]replaceObjectAtIndex:4 withObject:HAsegC];
+    [[memMap objectAtIndex:9]replaceObjectAtIndex:0 withObject:HAsegE];
+    [[memMap objectAtIndex:9]replaceObjectAtIndex:2 withObject:HAsegF];
+    [[memMap objectAtIndex:9]replaceObjectAtIndex:5 withObject:HAsegG];
+    
+    
+    // HOUR DIGIT B
+    xOffset += 120;
+    NSMutableArray* HBsegA = [self makeLargeHSegArr:scale x:scale*(10+xOffset) y:scale*(yOffset) ];
+    NSMutableArray* HBsegB = [self makeLargeVSegArr:scale x:scale*(80+xOffset) y:scale*(10+yOffset) ];
+    NSMutableArray* HBsegC = [self makeLargeVSegArr:scale x:scale*(80+xOffset) y:scale*(90+yOffset) ];
+    NSMutableArray* HBsegD = [self makeLargeHSegArr:scale x:scale*(10+xOffset) y:scale*(160+yOffset) ];
+    NSMutableArray* HBsegE = [self makeLargeVSegArr:scale x:scale*(xOffset) y:scale*(90+yOffset) ];
+    NSMutableArray* HBsegF = [self makeLargeVSegArr:scale x:scale*(xOffset) y:scale*(10+yOffset) ];
+    NSMutableArray* HBsegG = [self makeLargeHSegArr:scale x:scale*(10+xOffset) y:scale*(80+yOffset) ];
+    /* memmap
+     10:2 - HBA
+     10:6 - HBB
+     10:5 - HBC
+     10:4 - HBD
+     10:0 - HBE
+     08:5 - HBF
+     10:1 - HBG
+     */
+    [[memMap objectAtIndex:10]replaceObjectAtIndex:2 withObject:HBsegA];
+    [[memMap objectAtIndex:10]replaceObjectAtIndex:6 withObject:HBsegB];
+    [[memMap objectAtIndex:10]replaceObjectAtIndex:5 withObject:HBsegC];
+    [[memMap objectAtIndex:10]replaceObjectAtIndex:4 withObject:HBsegD];
+    [[memMap objectAtIndex:10]replaceObjectAtIndex:0 withObject:HBsegE];
+    [[memMap objectAtIndex: 8]replaceObjectAtIndex:5 withObject:HBsegF];
+    [[memMap objectAtIndex:10]replaceObjectAtIndex:1 withObject:HBsegG];
+
+    //SECONDS COLON
+    // LCDMEM[8]:0x02;
+    xOffset += 110;
+//    PathClassName* secDot = [self makeSecDot:scale x:scale*(10+xOffset) y:scale*(42+yOffset) ];
+//    PathClassName* secDot2 = [self makeSecDot:scale x:scale*(10+xOffset) y:scale*(120+yOffset) ];
+//    [secDot appendPath:secDot2];
+//    [[memMap objectAtIndex:8]replaceObjectAtIndex:1 withObject:secDot];
+    
+    // MIN DIGIT A
+    xOffset += 50;
+    NSMutableArray* MAsegA = [self makeLargeHSegArr:scale x:scale*(10+xOffset) y:scale*(yOffset) ];
+    NSMutableArray* MAsegB = [self makeLargeVSegArr:scale x:scale*(80+xOffset) y:scale*(10+yOffset) ];
+    NSMutableArray* MAsegC = [self makeLargeVSegArr:scale x:scale*(80+xOffset) y:scale*(90+yOffset) ];
+    NSMutableArray* MAsegAD = [self makeLargeHSegArr:scale x:scale*(10+xOffset) y:scale*(160+yOffset) ];
+//    [MAsegAD appendPath:MAsegA]; // a and d are tied in this digit
+    NSMutableArray* MAsegE = [self makeLargeVSegArr:scale x:scale*(xOffset) y:scale*(90+yOffset) ];
+    NSMutableArray* MAsegF = [self makeLargeVSegArr:scale x:scale*(xOffset) y:scale*(10+yOffset) ];
+    NSMutableArray* MAsegG = [self makeLargeHSegArr:scale x:scale*(10+xOffset) y:scale*(80+yOffset) ];
+    /* memmap
+    11:0 - MAA+D
+    11:6 - MAB
+    11:4 - MAC
+    11:0 - MAA+D
+    11:1 - MAE
+    11:2 - MAF
+    11:5 - MAG
+     */
+    [[memMap objectAtIndex:11]replaceObjectAtIndex:0 withObject:MAsegAD];
+    [[memMap objectAtIndex:11]replaceObjectAtIndex:6 withObject:MAsegB];
+    [[memMap objectAtIndex:11]replaceObjectAtIndex:4 withObject:MAsegC];
+    [[memMap objectAtIndex:11]replaceObjectAtIndex:1 withObject:MAsegE];
+    [[memMap objectAtIndex:11]replaceObjectAtIndex:2 withObject:MAsegF];
+    [[memMap objectAtIndex:11]replaceObjectAtIndex:5 withObject:MAsegG];
+    
+    // MIN DIGIT B
+    xOffset += 120;
+    NSMutableArray* MBsegA = [self makeLargeHSegArr:scale x:scale*(10+xOffset) y:scale*(yOffset) ];
+    NSMutableArray* MBsegB = [self makeLargeVSegArr:scale x:scale*(80+xOffset) y:scale*(10+yOffset) ];
+    NSMutableArray* MBsegC = [self makeLargeVSegArr:scale x:scale*(80+xOffset) y:scale*(90+yOffset) ];
+    NSMutableArray* MBsegD = [self makeLargeHSegArr:scale x:scale*(10+xOffset) y:scale*(160+yOffset) ];
+    NSMutableArray* MBsegE = [self makeLargeVSegArr:scale x:scale*(xOffset) y:scale*(90+yOffset) ];
+    NSMutableArray* MBsegF = [self makeLargeVSegArr:scale x:scale*(xOffset) y:scale*(10+yOffset) ];
+    NSMutableArray* MBsegG = [self makeLargeHSegArr:scale x:scale*(10+xOffset) y:scale*(80+yOffset) ];
+
+    /*
+    00:6 - MBA
+    05:2 - MBB
+    00:4 - MBC
+    00:0 - MBD
+    00:1 - MBE
+    00:2 - MBF
+    00:5 - MBG
+    */
+    [[memMap objectAtIndex:0]replaceObjectAtIndex:6 withObject:MBsegA];
+    [[memMap objectAtIndex:5]replaceObjectAtIndex:2 withObject:MBsegB];
+    [[memMap objectAtIndex:0]replaceObjectAtIndex:4 withObject:MBsegC];
+    [[memMap objectAtIndex:0]replaceObjectAtIndex:0 withObject:MBsegD];
+    [[memMap objectAtIndex:0]replaceObjectAtIndex:1 withObject:MBsegE];
+    [[memMap objectAtIndex:0]replaceObjectAtIndex:2 withObject:MBsegF];
+    [[memMap objectAtIndex:0]replaceObjectAtIndex:5 withObject:MBsegG];
+    
+    // SEC DIGIT A
+    xOffset += 130;
+    yOffset += 45;
+    NSMutableArray* SAsegA = [self makeMediumHSegArr:scale x:scale*(7.5+xOffset) y:scale*(yOffset) ];
+    NSMutableArray* SAsegB = [self makeMediumVSegArr:scale x:scale*(60+xOffset) y:scale*(7.5+yOffset) ];
+    NSMutableArray* SAsegC = [self makeMediumVSegArr:scale x:scale*(60+xOffset) y:scale*(67.5+yOffset) ];
+    NSMutableArray* SAsegD = [self makeMediumHSegArr:scale x:scale*(7.5+xOffset) y:scale*(120+yOffset) ];
+    NSMutableArray* SAsegE = [self makeMediumVSegArr:scale x:scale*(xOffset) y:scale*(67.5+yOffset) ];
+    NSMutableArray* SAsegF = [self makeMediumVSegArr:scale x:scale*(xOffset) y:scale*(7.5+yOffset) ];
+    NSMutableArray* SAsegG = [self makeMediumHSegArr:scale x:scale*(7.5+xOffset) y:scale*(60+yOffset) ];
+    /*
+     1:2 - SAA
+     1:6 - SAB
+     2:0 - SAC
+     1:4 - SAD
+     1:0 - SAE
+     1:1 - SAF
+     1:5 - SAG
+     */
+    [[memMap objectAtIndex:1]replaceObjectAtIndex:2 withObject:SAsegA];
+    [[memMap objectAtIndex:1]replaceObjectAtIndex:6 withObject:SAsegB];
+    [[memMap objectAtIndex:2]replaceObjectAtIndex:0 withObject:SAsegC];
+    [[memMap objectAtIndex:1]replaceObjectAtIndex:4 withObject:SAsegD];
+    [[memMap objectAtIndex:1]replaceObjectAtIndex:0 withObject:SAsegE];
+    [[memMap objectAtIndex:1]replaceObjectAtIndex:1 withObject:SAsegF];
+    [[memMap objectAtIndex:1]replaceObjectAtIndex:5 withObject:SAsegG];
+    
+    // SEC DIGIT B
+    xOffset += 90;
+    NSMutableArray* SBsegA = [self makeMediumHSegArr:scale x:scale*(7.5+xOffset) y:scale*(yOffset) ];
+    NSMutableArray* SBsegB = [self makeMediumVSegArr:scale x:scale*(60+xOffset) y:scale*(7.5+yOffset) ];
+    NSMutableArray* SBsegC = [self makeMediumVSegArr:scale x:scale*(60+xOffset) y:scale*(67.5+yOffset) ];
+    NSMutableArray* SBsegD = [self makeMediumHSegArr:scale x:scale*(7.5+xOffset) y:scale*(120+yOffset) ];
+    NSMutableArray* SBsegE = [self makeMediumVSegArr:scale x:scale*(xOffset) y:scale*(67.5+yOffset) ];
+    NSMutableArray* SBsegF = [self makeMediumVSegArr:scale x:scale*(xOffset) y:scale*(7.5+yOffset) ];
+    NSMutableArray* SBsegG = [self makeMediumHSegArr:scale x:scale*(7.5+xOffset) y:scale*(60+yOffset) ];
+    /*
+     2:2 - SBA
+     2:6 - SBB
+     3:1 - SBC
+     3:0 - SBD
+     2:4 - SBE
+     2:1 - SBF
+     2:5 - SBG
+     */
+    [[memMap objectAtIndex:2]replaceObjectAtIndex:2 withObject:SBsegA];
+    [[memMap objectAtIndex:2]replaceObjectAtIndex:6 withObject:SBsegB];
+    [[memMap objectAtIndex:3]replaceObjectAtIndex:1 withObject:SBsegC];
+    [[memMap objectAtIndex:3]replaceObjectAtIndex:0 withObject:SBsegD];
+    [[memMap objectAtIndex:2]replaceObjectAtIndex:4 withObject:SBsegE];
+    [[memMap objectAtIndex:2]replaceObjectAtIndex:1 withObject:SBsegF];
+    [[memMap objectAtIndex:2]replaceObjectAtIndex:5 withObject:SBsegG];
+    
+//    NSMutableArray* testArray = [self makeMediumVSegArr:scale x:scale*(7.5+xOffset) y:scale*(yOffset)];
+//    NSMutableArray* testArray = [[memMap objectAtIndex:2]objectAtIndex:2];
+//    [[memMap objectAtIndex:2]replaceObjectAtIndex:6 withObject:testArray];
+    
+//    [self drawMyLine:testArray];
+    NSLog(@"end initScene");
+}
+
+- (void) initSceneKeep:(float)scale x:(float)xOffset y:(float)yOffset
 {
     //    buildDisplay
     NSLog(@"initScene");
@@ -345,6 +555,12 @@ float frameWidth;
     [[memMap objectAtIndex:2]replaceObjectAtIndex:4 withObject:SBsegE];
     [[memMap objectAtIndex:2]replaceObjectAtIndex:1 withObject:SBsegF];
     [[memMap objectAtIndex:2]replaceObjectAtIndex:5 withObject:SBsegG];
+    
+    NSMutableArray* testArray = [self makeMediumVSegArr:scale x:scale*(7.5+xOffset) y:scale*(yOffset)];
+//    [[memMap objectAtIndex:2]replaceObjectAtIndex:6 withObject:testArray];
+    
+    [self drawMyLine:testArray];
+    NSLog(@"end initScene");
 }
 
 
@@ -382,6 +598,8 @@ float frameWidth;
 {
     //// Bezier Drawing
     PathClassName* bezierPath = [PathClassName bezierPath];
+//    NSLog(@"makeMediumHSeg");
+//    NSLog(@"%f, %f, %f", scale, xOffset, yOffset);
     [bezierPath moveToPoint: CGPointMake((0*scale)+xOffset, (7.5*scale)+yOffset)];
     [bezierPath addLineToPoint: CGPointMake((7.5*scale)+xOffset, (0*scale)+yOffset)];
     [bezierPath addLineToPoint: CGPointMake((52.5*scale)+xOffset, (0*scale)+yOffset)];
@@ -409,6 +627,220 @@ float frameWidth;
     return bezierPath;
     
 }
+
+- (NSMutableArray*) makeLargeHSegArr:(float)scale x:(float)xOffset y:(float)yOffset
+{
+    //// Bezier Drawing
+    NSMutableArray * path = [[NSMutableArray alloc] initWithCapacity:7];
+    xOffset = xOffset - size.width/2;
+//    yOffset = yOffset - size.height/2;
+    
+    NSValue *pointValue1 = [NSValue valueWithCGPoint:CGPointMake((0*scale)+xOffset, (10*scale)+yOffset)];
+    [path addObject:pointValue1];
+    NSValue *pointValue2 = [NSValue valueWithCGPoint:CGPointMake((10*scale)+xOffset, (0*scale)+yOffset)];
+    [path addObject:pointValue2];
+    NSValue *pointValue3 = [NSValue valueWithCGPoint:CGPointMake((70*scale)+xOffset, (0*scale)+yOffset)];
+    [path addObject:pointValue3];
+    NSValue *pointValue4 = [NSValue valueWithCGPoint:CGPointMake((80*scale)+xOffset, (10*scale)+yOffset)];
+    [path addObject:pointValue4];
+    NSValue *pointValue5 = [NSValue valueWithCGPoint:CGPointMake((70*scale)+xOffset, (20*scale)+yOffset)];
+    [path addObject:pointValue5];
+    NSValue *pointValue6 = [NSValue valueWithCGPoint:CGPointMake((10*scale)+xOffset, (20*scale)+yOffset)];
+    [path addObject:pointValue6];
+    NSValue *pointValue7 = [NSValue valueWithCGPoint:CGPointMake((0*scale)+xOffset, (10*scale)+yOffset)];
+    [path addObject:pointValue7];
+    
+    return path;
+}
+- (NSMutableArray*) makeLargeVSegArr:(float)scale x:(float)xOffset y:(float)yOffset
+{
+    //// Bezier Drawing
+    NSMutableArray * path = [[NSMutableArray alloc] initWithCapacity:7];
+    xOffset = xOffset - size.width/2;
+//    yOffset = yOffset - size.height/2;
+    
+    NSValue *pointValue1 = [NSValue valueWithCGPoint:CGPointMake((10*scale)+xOffset, (0*scale)+yOffset)];
+    [path addObject:pointValue1];
+    NSValue *pointValue2 = [NSValue valueWithCGPoint:CGPointMake((20*scale)+xOffset, (10*scale)+yOffset)];
+    [path addObject:pointValue2];
+    NSValue *pointValue3 = [NSValue valueWithCGPoint:CGPointMake((20*scale)+xOffset, (70*scale)+yOffset)];
+    [path addObject:pointValue3];
+    NSValue *pointValue4 = [NSValue valueWithCGPoint:CGPointMake((10*scale)+xOffset, (80*scale)+yOffset)];
+    [path addObject:pointValue4];
+    NSValue *pointValue5 = [NSValue valueWithCGPoint:CGPointMake((0*scale)+xOffset, (70*scale)+yOffset)];
+    [path addObject:pointValue5];
+    NSValue *pointValue6 = [NSValue valueWithCGPoint:CGPointMake((0*scale)+xOffset, (10*scale)+yOffset)];
+    [path addObject:pointValue6];
+    NSValue *pointValue7 = [NSValue valueWithCGPoint:CGPointMake((10*scale)+xOffset, (0*scale)+yOffset)];
+    [path addObject:pointValue7];
+    
+    return path;
+}
+
+- (NSMutableArray*) makeMediumHSegArr:(float)scale x:(float)xOffset y:(float)yOffset
+{
+    //// Bezier Drawing
+    NSMutableArray * path = [[NSMutableArray alloc] initWithCapacity:7];
+    xOffset = xOffset - size.width/2;
+//    yOffset = yOffset - size.height/2;
+    
+    NSValue *pointValue1 = [NSValue valueWithCGPoint:CGPointMake((0*scale)+xOffset, (7.5*scale)+yOffset)];
+    [path addObject:pointValue1];
+    NSValue *pointValue2 = [NSValue valueWithCGPoint:CGPointMake((7.5*scale)+xOffset, (0*scale)+yOffset)];
+    [path addObject:pointValue2];
+    NSValue *pointValue3 = [NSValue valueWithCGPoint:CGPointMake((52.5*scale)+xOffset, (0*scale)+yOffset)];
+    [path addObject:pointValue3];
+    NSValue *pointValue4 = [NSValue valueWithCGPoint:CGPointMake((60*scale)+xOffset, (7.5*scale)+yOffset)];
+    [path addObject:pointValue4];
+    NSValue *pointValue5 = [NSValue valueWithCGPoint:CGPointMake((52.5*scale)+xOffset, (15*scale)+yOffset)];
+    [path addObject:pointValue5];
+    NSValue *pointValue6 = [NSValue valueWithCGPoint:CGPointMake((7.5*scale)+xOffset, (15*scale)+yOffset)];
+    [path addObject:pointValue6];
+    NSValue *pointValue7 = [NSValue valueWithCGPoint:CGPointMake((0*scale)+xOffset, (7.5*scale)+yOffset)];
+    [path addObject:pointValue7];
+    
+    return path;
+}
+
+- (NSMutableArray*) makeMediumVSegArr:(float)scale x:(float)xOffset y:(float)yOffset
+{
+    //// Bezier Drawing
+    NSMutableArray * path = [[NSMutableArray alloc] initWithCapacity:7];
+    xOffset = xOffset - size.width/2;
+//    yOffset = yOffset - size.height/2;
+    
+    NSValue *pointValue1 = [NSValue valueWithCGPoint:CGPointMake((7.5*scale)+xOffset, (0*scale)+yOffset)];
+    [path addObject:pointValue1];
+    NSValue *pointValue2 = [NSValue valueWithCGPoint:CGPointMake((15*scale)+xOffset, (7.5*scale)+yOffset)];
+    [path addObject:pointValue2];
+    NSValue *pointValue3 = [NSValue valueWithCGPoint:CGPointMake((15*scale)+xOffset, (52.5*scale)+yOffset)];
+    [path addObject:pointValue3];
+    NSValue *pointValue4 = [NSValue valueWithCGPoint:CGPointMake((7.5*scale)+xOffset, (60*scale)+yOffset)];
+    [path addObject:pointValue4];
+    NSValue *pointValue5 = [NSValue valueWithCGPoint:CGPointMake((0*scale)+xOffset, (52.5*scale)+yOffset)];
+    [path addObject:pointValue5];
+    NSValue *pointValue6 = [NSValue valueWithCGPoint:CGPointMake((0*scale)+xOffset, (7.5*scale)+yOffset)];
+    [path addObject:pointValue6];
+    NSValue *pointValue7 = [NSValue valueWithCGPoint:CGPointMake((7.5*scale)+xOffset, (0*scale)+yOffset)];
+    [path addObject:pointValue7];
+    
+//    NSLog(@"NSValue = %@", pointValue1);
+//    NSLog(@"NSValue = %@", pointValue2);
+//    NSLog(@"NSValue = %@", pointValue3);
+//    NSLog(@"NSValue = %@", pointValue4);
+//    NSLog(@"NSValue = %@", pointValue5);
+//    NSLog(@"NSValue = %@", pointValue6);
+//    NSLog(@"NSValue = %@", pointValue7);
+    
+    return path;
+}
+
+- (void)drawMyLineKeep:(float)scale x:(float)xOffset y:(float)yOffset {
+    NSLog(@"draw my line");
+    NSLog(@"size.width = %f", size.width);
+    // Bezier Drawing
+//    CGSize sizee = CGSizeMake(500, 500);
+    UIGraphicsBeginImageContext(size);
+    CGContextRef contextt = UIGraphicsGetCurrentContext();
+//    [contextt setStrokeColor:[SKColor blueColor].CGColor];
+    CGContextSetStrokeColorWithColor(contextt, [SKColor blueColor].CGColor);
+    CGContextSetLineWidth(contextt, 4.0);
+    
+    CGContextBeginPath (contextt);
+    CGContextMoveToPoint(contextt, (7.5*scale)+xOffset, (0*scale)+yOffset);
+    CGContextAddLineToPoint(contextt, (15*scale)+xOffset, (7.5*scale)+yOffset);
+    CGContextAddLineToPoint(contextt, (15*scale)+xOffset, (52.5*scale)+yOffset);
+    CGContextAddLineToPoint(contextt, (7.5*scale)+xOffset, (60*scale)+yOffset);
+    CGContextAddLineToPoint(contextt, (0*scale)+xOffset, (52.5*scale)+yOffset);
+    CGContextAddLineToPoint(contextt, (0*scale)+xOffset, (7.5*scale)+yOffset);
+//    CGContextMoveToPoint(contextt, 0, 100);
+    CGContextAddLineToPoint(contextt, (7.5*scale)+xOffset, (0*scale)+yOffset);
+    CGContextStrokePath(contextt);
+    CGImageRef cgimage = CGBitmapContextCreateImage(contextt);
+    UIImage* uiimage = [UIImage imageWithCGImage:cgimage];
+    
+//    CGContextRelease(contextt);
+    UIGraphicsEndImageContext();
+    
+    [self.myImage setImage:uiimage];
+}
+
+- (void)drawMyCircle {
+//    works
+    NSLog(@"draw my circle");
+    SKShapeNode *circle = [[SKShapeNode alloc] init];
+     
+    CGMutablePathRef myPath = CGPathCreateMutable();
+    CGPathAddArc(myPath, NULL, 0,0, 50, 0, M_PI*2, YES);
+    circle.path = myPath;
+     
+    circle.lineWidth = 1.0;
+    circle.fillColor = [SKColor blueColor];
+    circle.strokeColor = [SKColor whiteColor];
+    circle.glowWidth = 0.5;
+    
+    [self addChild:circle];
+}
+
+- (void)drawMyLine:(NSMutableArray*) inputArr {
+//    works
+//    NSLog(@"draw my line-to-point");
+//    CGPoint points[] = {
+//        CGPointMake(-50.0,  50.0),
+//        CGPointMake(50.0,  50.0),
+//        CGPointMake(50.0,  -50.0),
+//        CGPointMake(-50.0,  -50.0)
+//    };
+    CGPoint pointsFromNSArray[] = {
+        [[inputArr objectAtIndex:0] CGPointValue],
+        [[inputArr objectAtIndex:1] CGPointValue],
+        [[inputArr objectAtIndex:2] CGPointValue],
+        [[inputArr objectAtIndex:3] CGPointValue],
+        [[inputArr objectAtIndex:4] CGPointValue],
+        [[inputArr objectAtIndex:5] CGPointValue],
+        [[inputArr objectAtIndex:6] CGPointValue]
+    };
+    SKShapeNode *line = [[SKShapeNode alloc] init];
+     
+    CGMutablePathRef myPath = CGPathCreateMutable();
+    CGPathAddLines(myPath, NULL, pointsFromNSArray, 7);
+//    CGPathAddLineToPoint(myPath, NULL, 50,50);
+    line.path = myPath;
+     
+    line.lineWidth = 2.0;
+    line.fillColor = [SKColor whiteColor];
+    line.strokeColor = [SKColor blackColor];
+//    circle.glowWidth = 0.5;
+    
+    [self addChild:line];
+}
+- (void)drawMyLineOff:(NSMutableArray*) inputArr {
+//    works
+    
+    CGPoint pointsFromNSArray[] = {
+        [[inputArr objectAtIndex:0] CGPointValue],
+        [[inputArr objectAtIndex:1] CGPointValue],
+        [[inputArr objectAtIndex:2] CGPointValue],
+        [[inputArr objectAtIndex:3] CGPointValue],
+        [[inputArr objectAtIndex:4] CGPointValue],
+        [[inputArr objectAtIndex:5] CGPointValue],
+        [[inputArr objectAtIndex:6] CGPointValue]
+    };
+    SKShapeNode *circle = [[SKShapeNode alloc] init];
+     
+    CGMutablePathRef myPath = CGPathCreateMutable();
+    CGPathAddLines(myPath, NULL, pointsFromNSArray, 7);
+//    CGPathAddLineToPoint(myPath, NULL, 50,50);
+    circle.path = myPath;
+     
+//    circle.lineWidth = 2.0;
+    circle.fillColor = [SKColor blackColor];
+//    circle.strokeColor = [SKColor whiteColor];
+//    circle.glowWidth = 0.5;
+    
+    [self addChild:circle];
+}
+
 - (PathClassName*) makeSecDot:(float)scale x:(float)xOffset y:(float)yOffset
 {
     PathClassName* bezierPath = [PathClassName bezierPath];
@@ -428,7 +860,7 @@ float frameWidth;
     NSLog(@"drawFrame");
 //    int g;
 //
-    [self addChild: [self dotNode]];
+//    [self addChild: [self dotNode]];
 //
 //    // update values for next frame
 //    theta += dtheta;

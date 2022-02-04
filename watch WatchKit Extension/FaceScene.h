@@ -42,6 +42,7 @@ static const NSTimeInterval  kScheduledTimerInSeconds      = 1.0f/21.0f;
         display:UIView in display.h
     */
     NSMutableArray * memMap;
+    NSMutableArray * memMap2;
     
     /*
         f91w:NSObject in f91w.h
@@ -64,7 +65,8 @@ static const NSTimeInterval  kScheduledTimerInSeconds      = 1.0f/21.0f;
     display:UIView in display.h
 */
 //- (id)initWithFrame:(CGRect)frame;
-- (id)initWithCoder:(NSCoder *)coder;
+//- (id)initWithCoder:(NSCoder *)coder;
+
 //- (void)update;
 - (void) initScene:(float)scale x:(float)xOffset y:(float)yOffset;
 - (PathClassName*) makeLargeHSeg:(float)scale x:(float)xOffset y:(float)yOffset;
@@ -72,12 +74,13 @@ static const NSTimeInterval  kScheduledTimerInSeconds      = 1.0f/21.0f;
 - (PathClassName*) makeMediumHSeg:(float)scale x:(float)xOffset y:(float)yOffset;
 - (PathClassName*) makeMediumVSeg:(float)scale x:(float)xOffset y:(float)yOffset;
 
-@property (readonly) CGSize size;
+//@property (readonly) CGSize size;
 @property (readonly) CGRect wyoscanArea;
 
 @property (readonly) int counter;
 @property (readonly) CGRect dotRect;
 @property (readonly) CGPoint dotPoint;
+@property CGContextRef context;
 /*
     f91w:NSObject in f91w.h
 */
@@ -94,7 +97,7 @@ static const NSTimeInterval  kScheduledTimerInSeconds      = 1.0f/21.0f;
 //- (void) updateDisplay;
 - (NSString *)intToBinary:(int)Number;
 
-
+@property (weak, nonatomic) IBOutlet WKInterfaceImage* myImage;
 /*
     f91wViewController:UIViewController in f91wViewController.h
 */
