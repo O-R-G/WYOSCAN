@@ -67,8 +67,7 @@
     RTCHOUR = int2bcd((char)hour);
 
     // NSLog(@"RTCSEC = %c", RTCSEC);
-    fprintf(stderr, "RTCSEC: %c \n", RTCSEC);
-
+    // fprintf(stderr, "RTCSEC: %c \n", RTCSEC);
     
     ds_animateRTC(0,0,0);
     [self updateDisplay];
