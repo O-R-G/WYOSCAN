@@ -90,6 +90,8 @@ float frameWidth;
 //        ball.fillColor = [SKColor blueColor];
 //        [self drawMyCircle];
 //        [self drawMyLine];
+        
+        [self initTimers];
         self.delegate = self;
     }
 
@@ -149,14 +151,14 @@ float frameWidth;
     
     // loop through the bytes
     for(int i = 0; i < 12; i++){
+        
         // get the byte
         unsigned char myByte = LCDMEM[i];
 
         // debug
-        // NSLog(@"----------------> %c", myByte);
+        // NSLog(@"%c", myByte);
         
         // loop through the bits
-        
         for(int j = 0; j<7; j++){
             
             // make sure we have a path defined for this memory address
@@ -170,10 +172,7 @@ float frameWidth;
                     
                 }*/
 //                NSLog(@"i = %d j =%d ", i, j);
-                
 //                NSLog(@"context");
-
-
 
                 if(myBit > 0){
                     // bit is set
@@ -187,8 +186,8 @@ float frameWidth;
 //                    seg.lineWidth = 2;
 //                    [seg stroke];
 
-NSLog(@"** BIT SET **");
-NSLog(@"seg: %@", seg);
+                    // NSLog(@"+ BIT SET +");
+                    // NSLog(@"seg: %@", seg);
 
 
 
@@ -197,8 +196,8 @@ NSLog(@"seg: %@", seg);
 //                  // bit is not set
 //                    PathClassName* seg = [[memMap objectAtIndex:i]objectAtIndex:j];
                     NSMutableArray* seg = [[memMap objectAtIndex:i]objectAtIndex:j];
-                    [self drawMyLine:seg];
-                    // [self drawMyLineOff:seg];
+                    // [self drawMyLine:seg];
+                    [self drawMyLineOff:seg];
 //                    [offFill setFill];
 //                     [seg fill];
 //                    [stroke setStroke];
@@ -206,7 +205,7 @@ NSLog(@"seg: %@", seg);
 //                    [seg stroke];
 //
 // NSLog(seg);
-NSLog(@"** BIT NOT SET **");
+// NSLog(@"** BIT NOT SET **");
 // NSLog(@"seg: %@", seg);
 
                 }
@@ -933,8 +932,16 @@ NSLog(@"** BIT NOT SET **");
 
 - (void) initTimers
 {
-    
+
+    /*    
     msp430Timer = [NSTimer timerWithTimeInterval:1.f/21.f
+                                    target:self
+                                  selector:@selector(msp430TimerCallback)
+                                  userInfo:nil
+                                   repeats:YES];
+    */
+
+    msp430Timer = [NSTimer timerWithTimeInterval:1.f/60.f
                                     target:self
                                   selector:@selector(msp430TimerCallback)
                                   userInfo:nil
@@ -949,7 +956,7 @@ NSLog(@"** BIT NOT SET **");
                                         userInfo:nil
                                          repeats:YES];
     
-    [[NSRunLoop currentRunLoop] addTimer:displayTimer forMode:NSDefaultRunLoopMode];*/
+    // [[NSRunLoop currentRunLoop] addTimer:displayTimer forMode:NSDefaultRunLoopMode];*/
     
     
 }
@@ -964,11 +971,16 @@ NSLog(@"** BIT NOT SET **");
     NSInteger minute = [components minute];
     NSInteger second = [components second];
     
+    // NSLog(@"second = %ld", (long)second);
+
     // run the c code
     RTCSEC = int2bcd((char)second);
     RTCMIN = int2bcd((char)minute);
     RTCHOUR = int2bcd((char)hour);
 
+    // NSLog(@"RTCSEC = %c", RTCSEC);
+    // fprintf(stderr, "RTCSEC: %c \n", RTCSEC);       // C-specific logging
+    
     ds_animateRTC(0,0,0);
    // [self update];
     

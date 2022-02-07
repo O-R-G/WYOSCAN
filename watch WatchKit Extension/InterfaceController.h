@@ -10,7 +10,7 @@
 #import <Foundation/Foundation.h>
 //#import <UIKit/UIKit.h>
 #import <SceneKit/SceneKit.h>
-//#import "FaceScene.h"
+#import "FaceScene.h"
 //#import "f91w.h"
 
 @interface InterfaceController : WKInterfaceController

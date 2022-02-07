@@ -27,7 +27,6 @@
 		26AB9FF327A3A553009B2185 /* LCD.c in Sources */ = {isa = PBXBuildFile; fileRef = 63E867111759547A00135D0A /* LCD.c */; };
 		26AB9FF427A3A556009B2185 /* msp430.c in Sources */ = {isa = PBXBuildFile; fileRef = 63E8671E175A746F00135D0A /* msp430.c */; };
 		26AB9FF527A3A6EE009B2185 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A77DCE21B03EF420042EDA7 /* Media.xcassets */; };
-		26AB9FFF27A3B14E009B2185 /* dexterSinister_UI.c in Sources */ = {isa = PBXBuildFile; fileRef = 26AB9FFE27A3B14E009B2185 /* dexterSinister_UI.c */; };
 		26ABA00027A3B217009B2185 /* dexterSinister.c in Sources */ = {isa = PBXBuildFile; fileRef = 63E8670E175953E500135D0A /* dexterSinister.c */; };
 		2A77DCE31B03EF420042EDA7 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A77DCE21B03EF420042EDA7 /* Media.xcassets */; };
 		2ADB64301AFAA69400DFEBF7 /* f91w.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E86715175A2C9A00135D0A /* f91w.m */; };
@@ -74,6 +73,7 @@
 		63FAD66C1759227100FFB66B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 63FAD66B1759227100FFB66B /* libxml2.dylib */; };
 		63FAD66E1759228300FFB66B /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63FAD66D1759228300FFB66B /* CoreText.framework */; };
 		63FAD6701759229000FFB66B /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63FAD66F1759229000FFB66B /* CoreImage.framework */; };
+		93E4CAF227AE25C3006A5034 /* dexterSinister_UI.c in Sources */ = {isa = PBXBuildFile; fileRef = 63E8671A175A739B00135D0A /* dexterSinister_UI.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,8 +171,6 @@
 		26AB9FEB27A2EA93009B2185 /* FaceScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FaceScene.h; sourceTree = "<group>"; };
 		26AB9FEC27A2EAD1009B2185 /* FaceScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FaceScene.m; sourceTree = "<group>"; };
 		26AB9FEE27A3A2FB009B2185 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.3.sdk/System/Library/Frameworks/SpriteKit.framework; sourceTree = DEVELOPER_DIR; };
-		26AB9FFD27A3B14E009B2185 /* dexterSinister_UI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dexterSinister_UI.h; sourceTree = "<group>"; };
-		26AB9FFE27A3B14E009B2185 /* dexterSinister_UI.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dexterSinister_UI.c; sourceTree = "<group>"; };
 		2A77DCE21B03EF420042EDA7 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		2AE49B7E1B0931F500BADC8B /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		2AE49B821B09415500BADC8B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -310,7 +308,6 @@
 		262162E927A10ACA007E23E8 /* watch WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
-				26AB9FF627A3B07C009B2185 /* ansi c files */,
 				26AB9FE927A2EA5E009B2185 /* FaceScene.sks */,
 				26AB9FEB27A2EA93009B2185 /* FaceScene.h */,
 				26AB9FEC27A2EAD1009B2185 /* FaceScene.m */,
@@ -344,15 +341,6 @@
 				2621630E27A10ACB007E23E8 /* watchUITestsLaunchTests.m */,
 			);
 			path = watchUITests;
-			sourceTree = "<group>";
-		};
-		26AB9FF627A3B07C009B2185 /* ansi c files */ = {
-			isa = PBXGroup;
-			children = (
-				26AB9FFD27A3B14E009B2185 /* dexterSinister_UI.h */,
-				26AB9FFE27A3B14E009B2185 /* dexterSinister_UI.c */,
-			);
-			path = "ansi c files";
 			sourceTree = "<group>";
 		};
 		6302D24217567875006961E3 = {
@@ -847,8 +835,8 @@
 				262162EC27A10ACA007E23E8 /* InterfaceController.m in Sources */,
 				26AB9FF327A3A553009B2185 /* LCD.c in Sources */,
 				262162F227A10ACA007E23E8 /* NotificationController.m in Sources */,
+				93E4CAF227AE25C3006A5034 /* dexterSinister_UI.c in Sources */,
 				26AB9FF227A3A551009B2185 /* rtc.c in Sources */,
-				26AB9FFF27A3B14E009B2185 /* dexterSinister_UI.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -3,7 +3,6 @@
 #include "LCD.h"
 
 
-
 /*
  a1a
 f   b
@@ -362,7 +361,7 @@ const unsigned char *segOrderPtr = &segOrder[0];
 
 
 
-////////////////////////////////////////////////
+///////////////////////////////////////////////////
 
 
 void testLCD_contrast(void){
