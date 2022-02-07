@@ -941,7 +941,7 @@ float frameWidth;
                                    repeats:YES];
     */
 
-    msp430Timer = [NSTimer timerWithTimeInterval:1.f/60.f
+    msp430Timer = [NSTimer timerWithTimeInterval:1.f/168.f
                                     target:self
                                   selector:@selector(msp430TimerCallback)
                                   userInfo:nil
