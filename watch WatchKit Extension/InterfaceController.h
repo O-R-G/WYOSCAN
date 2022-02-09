@@ -8,13 +8,16 @@
 
 #import <WatchKit/WatchKit.h>
 #import <Foundation/Foundation.h>
-//#import <UIKit/UIKit.h>
 #import <SceneKit/SceneKit.h>
 #import "FaceScene.h"
-//#import "f91w.h"
 
-@interface InterfaceController : WKInterfaceController
+@interface InterfaceController : WKInterfaceController <WKCrownDelegate> {
+    BOOL paused;
+}
 
-@property (strong, nonatomic) IBOutlet WKInterfaceSKScene *mainScene;
+@property (weak, nonatomic) FaceScene *faceScene;
+@property (weak, nonatomic) IBOutlet WKInterfaceSKScene *mainScene;
+@property (strong, nonatomic) IBOutlet WKInterfaceSlider *hzSlider;
+@property (nonatomic) int hz_slider;
 
 @end

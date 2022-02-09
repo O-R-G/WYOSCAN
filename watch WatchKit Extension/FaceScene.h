@@ -8,26 +8,7 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-//@interface display : UIView{
-//
-//    NSMutableArray * memMap;
-//}
-//
-//- (id)initWithFrame:(CGRect)frame;
-//- (void)updateDisplay;
-//- (void) buildDisplay:(float)scale x:(float)xOffset y:(float)yOffset;
-//- (PathClassName*) makeLargeHSeg:(float)scale x:(float)xOffset y:(float)yOffset;
-//- (PathClassName*) makeLargeVSeg:(float)scale x:(float)xOffset y:(float)yOffset;
-//- (PathClassName*) makeMediumHSeg:(float)scale x:(float)xOffset y:(float)yOffset;
-//- (PathClassName*) makeMediumVSeg:(float)scale x:(float)xOffset y:(float)yOffset;
-//
-//
-//
-//@end
 NS_ASSUME_NONNULL_BEGIN
-
-//static const NSTimeInterval  kScheduledTimerInSeconds      = 1.0f/21.0f;
-
 
 @interface FaceScene : SKScene <SKSceneDelegate>{
     /*
@@ -40,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
     */
     NSTimer *msp430Timer;                        // timer to call back msp430 functions
 }
+
 /*
     display:UIView in display.h
 */
@@ -48,12 +30,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) CGSize size;
 @property (readonly) CGRect wyoscanArea;
+@property (readwrite) float hz;
 
 /*
     f91w:NSObject in f91w.h
 */
 
 - (void) initTimers;
+- (void) adjustTimers;
 - (void) msp430TimerCallback;
 
 @end

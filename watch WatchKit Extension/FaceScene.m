@@ -65,9 +65,11 @@ float frameWidth;
 
 - (void)update:(NSTimeInterval)currentTime forScene:(SKScene *)scene
 {
-//    updateFrame / updateDisplay
-    // loop through LCDMEM and see which bits are on
-    // loop through the bytes
+    /*
+        loop through LCDMEM and see which bits are on
+        loop through the bytes
+    */
+    
     for(int i = 0; i < 12; i++){
         
         // get the byte
@@ -84,11 +86,13 @@ float frameWidth;
 
                 // pull the bit
                 unsigned char myBit = myByte & (1<<j);
-//               NSLog(@"%d", myBit);
-                /*if((i == 8) && (j == 1)){
+                // NSLog(@"%d", myBit);
+                /*
+                if((i == 8) && (j == 1)){
                     NSLog(@"secs: %d", (int)myBit);
                     
-                }*/
+                }
+                */
                 if(myBit > 0){
                     // bit is set
                     [(SKShapeNode*)[[SKNodeArray objectAtIndex:i]objectAtIndex:j] setFillColor:[SKColor whiteColor]];
@@ -100,8 +104,9 @@ float frameWidth;
                 // null object
                 // NSLog(@"null");
             }
-        }// j
-    }// i
+        }   // j
+    }   // i
+    // NSLog(@"ROTATE (FaceScene) ---> %f", _hz);
 }
 
 - (void) initScene:(float)scale x:(float)xOffset y:(float)yOffset
@@ -114,12 +119,13 @@ float frameWidth;
     xOffset = xOffset - size.width/2/scale;
     yOffset = yOffset - 160/2;
     
-//    NSLog(@"size.width = %f", size.width);
-//    NSLog(@"size.height = %f", size.height);
-//    NSLog(@"scale = %f", scale);
+    // NSLog(@"size.width = %f", size.width);
+    // NSLog(@"size.height = %f", size.height);
+    // NSLog(@"scale = %f", scale);
     
-    //    buildDisplay
-//    NSLog(@"initScene");
+    // buildDisplay
+    // NSLog(@"initScene");
+
     // HOUR DIGIT A
     NSMutableArray* HAsegA = [self makeLargeHSegArr:scale x:scale*(10+xOffset) y:scale*(yOffset) ];
     NSMutableArray* HAsegB = [self makeLargeVSegArr:scale x:scale*(80+xOffset) y:scale*(10+yOffset) ];
@@ -208,7 +214,7 @@ float frameWidth;
     [[SKNodeArray objectAtIndex:11]replaceObjectAtIndex:1 withObject:[self createSeg:MAsegE]];
     [[SKNodeArray objectAtIndex:11]replaceObjectAtIndex:2 withObject:[self createSeg:MAsegF]];
     [[SKNodeArray objectAtIndex:11]replaceObjectAtIndex:5 withObject:[self createSeg:MAsegG]];
-//    [[SKNodeArray objectAtIndex:11]replaceObjectAtIndex:3 withObject:[self createSeg:MAsegA]];
+    // [[SKNodeArray objectAtIndex:11]replaceObjectAtIndex:3 withObject:[self createSeg:MAsegA]];
     
     // MIN DIGIT B
     xOffset += 120;
@@ -301,10 +307,10 @@ float frameWidth;
 
 - (NSMutableArray*) makeLargeHSegArr:(float)scale x:(float)xOffset y:(float)yOffset
 {
-    //// Bezier Drawing
+    // Bezier Drawing
     NSMutableArray * path = [[NSMutableArray alloc] initWithCapacity:8];
-//    xOffset = xOffset - size.width/2;
-//    yOffset = yOffset - size.height/2;
+    // xOffset = xOffset - size.width/2;
+    // yOffset = yOffset - size.height/2;
     
     NSValue *pointValue1 = [NSValue valueWithCGPoint:CGPointMake((0*scale)+xOffset, -(10*scale)-yOffset)];
     [path addObject:pointValue1];
@@ -323,9 +329,10 @@ float frameWidth;
     
     return path;
 }
+
 - (NSMutableArray*) makeLargeVSegArr:(float)scale x:(float)xOffset y:(float)yOffset
 {
-    //// Bezier Drawing
+    // Bezier Drawing
     NSMutableArray * path = [[NSMutableArray alloc] initWithCapacity:8];
     
     NSValue *pointValue1 = [NSValue valueWithCGPoint:CGPointMake((10*scale)+xOffset, -(0*scale)-yOffset)];
@@ -348,7 +355,7 @@ float frameWidth;
 
 - (NSMutableArray*) makeMediumHSegArr:(float)scale x:(float)xOffset y:(float)yOffset
 {
-    //// Bezier Drawing
+    // Bezier Drawing
     NSMutableArray * path = [[NSMutableArray alloc] initWithCapacity:8];
     
     NSValue *pointValue1 = [NSValue valueWithCGPoint:CGPointMake((0*scale)+xOffset, -(7.5*scale)-yOffset)];
@@ -371,7 +378,7 @@ float frameWidth;
 
 - (NSMutableArray*) makeMediumVSegArr:(float)scale x:(float)xOffset y:(float)yOffset
 {
-    //// Bezier Drawing
+    // Bezier Drawing
     NSMutableArray * path = [[NSMutableArray alloc] initWithCapacity:8];
     
     NSValue *pointValue1 = [NSValue valueWithCGPoint:CGPointMake((7.5*scale)+xOffset, -(0*scale)-yOffset)];
@@ -451,31 +458,26 @@ float frameWidth;
     return shape;
 }
 
-
-
 - (void) initTimers
 {
 
-    msp430Timer = [NSTimer timerWithTimeInterval:1.f/42.f
-                                    target:self
-                                  selector:@selector(msp430TimerCallback)
-                                  userInfo:nil
-                                   repeats:YES];
+    /*
+        7 segments per digit and 6 digits
+        so to draw all digits is 42 updates
+        1.0 hz = 1 cycle / second = 1.0 / 42 = 0.0238
 
-//    msp430Timer = [NSTimer timerWithTimeInterval:1.f/168.f
-//                                    target:self
-//                                  selector:@selector(msp430TimerCallback)
-//                                  userInfo:nil
-//                                   repeats:YES];
-    
+        @property _hz keeps track
+    */
+
+    _hz = 1.0;
+
+    msp430Timer = [NSTimer timerWithTimeInterval:_hz/42.f target:self selector:@selector(msp430TimerCallback) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:msp430Timer forMode:NSDefaultRunLoopMode];
-    
 }
 
 - (void) msp430TimerCallback
 {
-
-  
+      
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:[NSDate date]];
     
     NSInteger hour= [components hour];
@@ -492,9 +494,21 @@ float frameWidth;
     // NSLog(@"RTCSEC = %c", RTCSEC);
     // fprintf(stderr, "RTCSEC: %c \n", RTCSEC);       // C-specific logging
     
-    ds_animateRTC(0,0,0);
-   // [self update];
-    
+    ds_animateRTC(0,0,0);    
+}
+
+- (void) adjustTimers
+{
+    /*
+        update _hz, kill and restart timer
+    */
+
+    if ([msp430Timer isValid]) {
+        [msp430Timer invalidate];
+        msp430Timer = nil;
+        msp430Timer = [NSTimer timerWithTimeInterval:_hz/42.f target:self selector:@selector(msp430TimerCallback) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:msp430Timer forMode:NSDefaultRunLoopMode];
+    } 
 }
 
 @end

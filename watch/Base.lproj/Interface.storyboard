@@ -11,9 +11,15 @@
             <objects>
                 <controller fullScreen="YES" id="AgC-eL-Hgc" customClass="InterfaceController">
                     <items>
-                        <spriteKitScene alignment="left" id="SwK-PT-hqS" userLabel="Main Scene"/>
+                        <group height="1" alignment="left" layout="overlap" id="QPZ-n0-sfM">
+                            <items>
+                                <spriteKitScene alignment="left" id="SwK-PT-hqS" userLabel="Main Scene"/>
+                                <slider alignment="center" verticalAlignment="center" hidden="YES" continuous="YES" value="25" maximum="50" steps="3" minimumImage="minus" catalog="system" maximumImage="plus" id="ROv-mX-6zo" userLabel="Hz Slider"/>
+                            </items>
+                        </group>
                     </items>
                     <connections>
+                        <outlet property="hzSlider" destination="ROv-mX-6zo" id="3bd-KJ-FsU"/>
                         <outlet property="mainScene" destination="SwK-PT-hqS" id="Qkh-cq-dtG"/>
                     </connections>
                 </controller>
@@ -52,4 +58,8 @@
             <point key="canvasLocation" x="468" y="345"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="minus" catalog="system" width="128" height="26"/>
+        <image name="plus" catalog="system" width="128" height="112"/>
+    </resources>
 </document>
