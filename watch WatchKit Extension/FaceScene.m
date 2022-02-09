@@ -98,7 +98,7 @@ float frameWidth;
                 }
             } else {
                 // null object
-//                NSLog(@"null");
+                // NSLog(@"null");
             }
         }// j
     }// i
@@ -130,8 +130,6 @@ float frameWidth;
     NSMutableArray* HAsegF = [self makeLargeVSegArr:scale x:scale*(xOffset) y:scale*(10+yOffset) ];
     NSMutableArray* HAsegG = [self makeLargeHSegArr:scale x:scale*(10+xOffset) y:scale*(80+yOffset) ];
     
-    
-    
     /* memmap
      09:1 - HAA
      09:6 - HAB
@@ -148,7 +146,7 @@ float frameWidth;
     [[SKNodeArray objectAtIndex:9]replaceObjectAtIndex:0 withObject:[self createSeg:HAsegE]];
     [[SKNodeArray objectAtIndex:9]replaceObjectAtIndex:2 withObject:[self createSeg:HAsegF]];
     [[SKNodeArray objectAtIndex:9]replaceObjectAtIndex:5 withObject:[self createSeg:HAsegG]];
-//    [[SKNodeArray objectAtIndex:9]replaceObjectAtIndex:3 withObject:[self createSeg:HAsegA]];
+    // [[SKNodeArray objectAtIndex:9]replaceObjectAtIndex:3 withObject:[self createSeg:HAsegA]];
     
     // HOUR DIGIT B
     xOffset += 120;
