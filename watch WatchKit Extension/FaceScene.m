@@ -470,29 +470,49 @@ float frameWidth;
     */
 
     _hz = 1.0;
-
+    startTime = [NSDate date];
     msp430Timer = [NSTimer timerWithTimeInterval:_hz/42.f target:self selector:@selector(msp430TimerCallback) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:msp430Timer forMode:NSDefaultRunLoopMode];
 }
 
 - (void) msp430TimerCallback
 {
-      
+    /* 
+        stopwatch
+        
+        C struct div_t returned by div()
+        contains two values, quotient and remainder
+        https://stackoverflow.com/questions/7971807/nstimeinterval-to-nsdate
+    */
+
+    NSTimeInterval elapsed = [startTime timeIntervalSinceNow] * -1;
+
+    div_t h = div(elapsed, 3600);
+    NSInteger hour = h.quot;
+    div_t m = div(h.rem, 60);
+    NSInteger minute = m.quot;
+    NSInteger second = m.rem;
+
+    /*
+        clock
+
+        unused for now, maybe a mode
+
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:[NSDate date]];
     
-    NSInteger hour= [components hour];
+    NSInteger hour = [components hour];
     NSInteger minute = [components minute];
     NSInteger second = [components second];
-    
-    // NSLog(@"second = %ld", (long)second);
+    */
 
-    // run the c code
+    // run the C code
     RTCSEC = int2bcd((char)second);
     RTCMIN = int2bcd((char)minute);
     RTCHOUR = int2bcd((char)hour);
 
-    // NSLog(@"RTCSEC = %c", RTCSEC);
-    // fprintf(stderr, "RTCSEC: %c \n", RTCSEC);       // C-specific logging
+    // NSLog(@"DEBUG : RTCSEC = %c", RTCSEC);
+    // fprintf(stderr, "DEBUG : RTCSEC: %c \n", RTCSEC);       // C-specific logging
+    // NSLog(@"DEBUG : %d:%d:%d", hour, minute, second);
     
     ds_animateRTC(0,0,0);    
 }

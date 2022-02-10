@@ -19,7 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
     /*
         f91w:NSObject in f91w.h
     */
-    NSTimer *msp430Timer;                        // timer to call back msp430 functions
+    NSTimer *msp430Timer;       // timer to call back msp430 functions
+    NSDate *startTime;          // overall start date used for time readout
 }
 
 /*
