@@ -59,6 +59,7 @@ float frameWidth;
     }
     [self initScene:scale x:20 y:20];
     [self initTimers];
+    _running = NO;
     return self;
 }
 
@@ -70,43 +71,45 @@ float frameWidth;
         loop through the bytes
     */
     
-    for(int i = 0; i < 12; i++){
-        
-        // get the byte
-        unsigned char myByte = LCDMEM[i];
-
-        // debug
-        // NSLog(@"%c", myByte);
-        
-        // loop through the bits
-        for(int j = 0; j<8; j++){
+    if (_running) {
+        for(int i = 0; i < 12; i++){
             
-            // make sure we have a path defined for this memory address
-            if([[SKNodeArray objectAtIndex:i]objectAtIndex:j] != [NSNull null]){
+            // get the byte
+            unsigned char myByte = LCDMEM[i];
 
-                // pull the bit
-                unsigned char myBit = myByte & (1<<j);
-                // NSLog(@"%d", myBit);
-                /*
-                if((i == 8) && (j == 1)){
-                    NSLog(@"secs: %d", (int)myBit);
-                    
-                }
-                */
-                if(myBit > 0){
-                    // bit is set
-                    [(SKShapeNode*)[[SKNodeArray objectAtIndex:i]objectAtIndex:j] setFillColor:[SKColor whiteColor]];
+            // debug
+            // NSLog(@"%c", myByte);
+            
+            // loop through the bits
+            for(int j = 0; j<8; j++){
+                
+                // make sure we have a path defined for this memory address
+                if([[SKNodeArray objectAtIndex:i]objectAtIndex:j] != [NSNull null]){
+
+                    // pull the bit
+                    unsigned char myBit = myByte & (1<<j);
+                    // NSLog(@"%d", myBit);
+                    /*
+                    if((i == 8) && (j == 1)){
+                        NSLog(@"secs: %d", (int)myBit);
+                        
+                    }
+                    */
+                    if(myBit > 0){
+                        // bit is set
+                        [(SKShapeNode*)[[SKNodeArray objectAtIndex:i]objectAtIndex:j] setFillColor:[SKColor whiteColor]];
+                    } else {
+                        // bit is not set
+                        [(SKShapeNode*)[[SKNodeArray objectAtIndex:i]objectAtIndex:j] setFillColor:[UIColor colorWithRed: .1f green: .1f blue: .1f alpha: 1.0f]];
+                    }
                 } else {
-                    // bit is not set
-                    [(SKShapeNode*)[[SKNodeArray objectAtIndex:i]objectAtIndex:j] setFillColor:[UIColor colorWithRed: .1f green: .1f blue: .1f alpha: 1.0f]];
+                    // null object
+                    // NSLog(@"null");
                 }
-            } else {
-                // null object
-                // NSLog(@"null");
-            }
-        }   // j
-    }   // i
-    // NSLog(@"ROTATE (FaceScene) ---> %f", _hz);
+            }   // j
+        }   // i
+        // NSLog(@"ROTATE (FaceScene) ---> %f", _hz);
+    }
 }
 
 - (void) initScene:(float)scale x:(float)xOffset y:(float)yOffset
@@ -529,6 +532,15 @@ float frameWidth;
         msp430Timer = [NSTimer timerWithTimeInterval:_hz/42.f target:self selector:@selector(msp430TimerCallback) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:msp430Timer forMode:NSDefaultRunLoopMode];
     } 
+}
+
+- (void) resetTimers
+{
+    /* 
+        reset startTime after tap to start a new timer
+    */
+
+    startTime = [NSDate date];
 }
 
 @end

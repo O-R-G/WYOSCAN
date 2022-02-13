@@ -18,6 +18,9 @@
 @property (weak, nonatomic) FaceScene *faceScene;
 @property (weak, nonatomic) IBOutlet WKInterfaceSKScene *mainScene;
 @property (strong, nonatomic) IBOutlet WKInterfaceSlider *hzSlider;
+@property (strong, nonatomic) IBOutlet WKTapGestureRecognizer *singleTapRecognizer;
 @property (nonatomic) int hz_slider;
+
+- (IBAction)singleTapAction:(id)sender;
 
 @end

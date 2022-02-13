@@ -13,7 +13,15 @@
                     <items>
                         <group height="1" alignment="left" layout="overlap" id="QPZ-n0-sfM">
                             <items>
-                                <spriteKitScene alignment="left" id="SwK-PT-hqS" userLabel="Main Scene"/>
+                                <spriteKitScene alignment="left" id="SwK-PT-hqS" userLabel="Main Scene">
+                                    <gestureRecognizers>
+                                        <tapGestureRecognizer id="8l7-31-xGM">
+                                            <connections>
+                                                <action selector="singleTapAction:" destination="AgC-eL-Hgc" id="MkH-YS-JOi"/>
+                                            </connections>
+                                        </tapGestureRecognizer>
+                                    </gestureRecognizers>
+                                </spriteKitScene>
                                 <slider alignment="center" verticalAlignment="center" hidden="YES" continuous="YES" value="25" maximum="50" steps="3" minimumImage="minus" catalog="system" maximumImage="plus" id="ROv-mX-6zo" userLabel="Hz Slider"/>
                             </items>
                         </group>
@@ -21,6 +29,7 @@
                     <connections>
                         <outlet property="hzSlider" destination="ROv-mX-6zo" id="3bd-KJ-FsU"/>
                         <outlet property="mainScene" destination="SwK-PT-hqS" id="Qkh-cq-dtG"/>
+                        <outlet property="singleTapRecognizer" destination="8l7-31-xGM" id="aDS-EF-wNp"/>
                     </connections>
                 </controller>
             </objects>

@@ -28,7 +28,7 @@
     > SCHEME=watch
     > DEVICEID=EF4AF95D-CC52-42EF-9F2F-B74DAD317DDE
     > DESTINATION='platform=watchsimulator,name=Apple Watch Series 7 - 45mm,OS=8.3'
-    > BUNDLEPATH=/Users/reinfurt/Library/Developer/Xcode/DerivedData/f91w-dunrpptkgxpbdabkxsafcibwiwet/Build/Products/Debug-watchsimulator/watch.app
+    > BUNDLEPATH=/Users/reinfurt/Library/Developer/Xcode/DerivedData/f91w-dunrpptkgxpbdabkxsafcibwiwet/Build/Products/Debug-watchsimulator/Wyoscan.app
     > BUNDLEID=com.o-r-g.f91w.watchkitapp
 
 + start simulator 

@@ -10,8 +10,9 @@
 #import <SpriteKit/SpriteKit.h>
 #import "FaceScene.h"
 
-
 @implementation InterfaceController
+
+@synthesize singleTapRecognizer;
 
 - (void)awakeWithContext:(id)context {
     // Configure interface objects here.
@@ -96,4 +97,15 @@
     [_hzSlider setHidden:1];
 }
 
+- (IBAction)singleTapAction:(id)sender {
+    NSLog(@"****** TAP ******");
+
+    if (_faceScene.running) {
+        [_faceScene setRunning: NO];
+    } else {
+        [_faceScene resetTimers];
+        [_faceScene adjustTimers];
+        [_faceScene setRunning: YES];
+    }
+}
 @end

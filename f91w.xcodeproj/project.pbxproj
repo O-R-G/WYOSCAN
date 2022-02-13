@@ -19,7 +19,7 @@
 		2621630327A10ACB007E23E8 /* watchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2621630227A10ACB007E23E8 /* watchTests.m */; };
 		2621630D27A10ACB007E23E8 /* watchUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2621630C27A10ACB007E23E8 /* watchUITests.m */; };
 		2621630F27A10ACB007E23E8 /* watchUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2621630E27A10ACB007E23E8 /* watchUITestsLaunchTests.m */; };
-		2621631227A10ACB007E23E8 /* watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 262162DA27A10ACA007E23E8 /* watch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2621631227A10ACB007E23E8 /* Wyoscan.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 262162DA27A10ACA007E23E8 /* Wyoscan.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		26AB9FEA27A2EA5E009B2185 /* FaceScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 26AB9FE927A2EA5E009B2185 /* FaceScene.sks */; };
 		26AB9FED27A2EAD1009B2185 /* FaceScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AB9FEC27A2EAD1009B2185 /* FaceScene.m */; };
 		26AB9FEF27A3A2FB009B2185 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26AB9FEE27A3A2FB009B2185 /* SpriteKit.framework */; };
@@ -139,7 +139,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				2621631227A10ACB007E23E8 /* watch.app in Embed Watch Content */,
+				2621631227A10ACB007E23E8 /* Wyoscan.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,7 +147,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		262162DA27A10ACA007E23E8 /* watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = watch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		262162DA27A10ACA007E23E8 /* Wyoscan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wyoscan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		262162DD27A10ACA007E23E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		262162DF27A10ACA007E23E8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		262162E527A10ACA007E23E8 /* watch WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "watch WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -367,7 +367,7 @@
 				6302D27417567875006961E3 /* f91wTests.octest */,
 				63E8672B175E43BE00135D0A /* f91w_osx.app */,
 				63E86749175E43C100135D0A /* f91w_osxTests.octest */,
-				262162DA27A10ACA007E23E8 /* watch.app */,
+				262162DA27A10ACA007E23E8 /* Wyoscan.app */,
 				262162E527A10ACA007E23E8 /* watch WatchKit Extension.appex */,
 				262162FE27A10ACB007E23E8 /* watchTests.xctest */,
 				2621630827A10ACB007E23E8 /* watchUITests.xctest */,
@@ -521,7 +521,7 @@
 			);
 			name = watch;
 			productName = watch;
-			productReference = 262162DA27A10ACA007E23E8 /* watch.app */;
+			productReference = 262162DA27A10ACA007E23E8 /* Wyoscan.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
 		262162E427A10ACA007E23E8 /* watch WatchKit Extension */ = {
@@ -1125,14 +1125,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
 				IBSC_MODULE = watch_WatchKit_Extension;
-				INFOPLIST_KEY_CFBundleDisplayName = watch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.o-r-g.f91w";
 				MARKETING_VERSION = 1.0.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.o-r-g.f91w.watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Wyoscan;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1167,14 +1166,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
 				IBSC_MODULE = watch_WatchKit_Extension;
-				INFOPLIST_KEY_CFBundleDisplayName = watch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.o-r-g.f91w";
 				MARKETING_VERSION = 1.0.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.o-r-g.f91w.watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Wyoscan;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
