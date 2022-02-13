@@ -72,7 +72,6 @@ float frameWidth;
         loop through the bytes
     */
     
-    if (_running) {
         for(int i = 0; i < 12; i++){
             
             // get the byte
@@ -87,30 +86,32 @@ float frameWidth;
                 // make sure we have a path defined for this memory address
                 if([[SKNodeArray objectAtIndex:i]objectAtIndex:j] != [NSNull null]){
 
-                    // pull the bit
-                    unsigned char myBit = myByte & (1<<j);
-                    // NSLog(@"%d", myBit);
-                    /*
-                    if((i == 8) && (j == 1)){
-                        NSLog(@"secs: %d", (int)myBit);
-                        
-                    }
-                    */
-                    if(myBit > 0){
-                        // bit is set
-                        [(SKShapeNode*)[[SKNodeArray objectAtIndex:i]objectAtIndex:j] setFillColor:[SKColor whiteColor]];
+                    if (_running) {
+
+                        // pull the bit
+                        unsigned char myBit = myByte & (1<<j);
+                        // NSLog(@"%d", myBit);
+
+                        if(myBit > 0){
+                            // bit is set
+                            [(SKShapeNode*)[[SKNodeArray objectAtIndex:i]objectAtIndex:j] setFillColor:[SKColor whiteColor]];
+                        } else {
+                            // bit is not set
+                            [(SKShapeNode*)[[SKNodeArray objectAtIndex:i]objectAtIndex:j] setFillColor:[UIColor colorWithRed: .1f green: .1f blue: .1f alpha: 1.0f]];
+                        }
                     } else {
-                        // bit is not set
-                        [(SKShapeNode*)[[SKNodeArray objectAtIndex:i]objectAtIndex:j] setFillColor:[UIColor colorWithRed: .1f green: .1f blue: .1f alpha: 1.0f]];
+                        // draw all segments on when not running
+                        // will be better to show finished time, not all segments on
+                        [(SKShapeNode*)[[SKNodeArray objectAtIndex:i]objectAtIndex:j] setFillColor:[SKColor whiteColor]];
                     }
+
                 } else {
                     // null object
                     // NSLog(@"null");
                 }
-            }   // j
-        }   // i
+            }
+        }
         // NSLog(@"ROTATE (FaceScene) ---> %f", _hz);
-    }
 }
 
 - (void) initScene:(float)scale x:(float)xOffset y:(float)yOffset
