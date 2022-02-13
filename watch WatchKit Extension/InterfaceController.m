@@ -106,6 +106,7 @@
         [_faceScene resetTimers];
         [_faceScene adjustTimers];
         [_faceScene setRunning: YES];
+        [[WKInterfaceDevice currentDevice] playHaptic:WKHapticTypeNotification];
     }
 }
 @end

@@ -59,7 +59,8 @@ float frameWidth;
     }
     [self initScene:scale x:20 y:20];
     [self initTimers];
-    _running = NO;
+    [[WKInterfaceDevice currentDevice] playHaptic:WKHapticTypeNotification];
+    _running = YES;
     return self;
 }
 
