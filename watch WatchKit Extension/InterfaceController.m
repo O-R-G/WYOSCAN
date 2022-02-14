@@ -101,6 +101,7 @@
     NSLog(@"****** TAP ******");
 
     if (_faceScene.running) {
+        [_faceScene pauseTimers];
         [_faceScene setRunning: NO];
     } else {
         [_faceScene resetTimers];

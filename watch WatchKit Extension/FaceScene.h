@@ -33,6 +33,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) CGRect wyoscanArea;
 @property (readwrite) float hz;
 @property (readwrite) BOOL running;
+@property NSInteger hour;
+@property NSInteger minute;
+@property NSInteger second;
 
 /*
     f91w:NSObject in f91w.h
@@ -42,6 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) adjustTimers;
 - (void) msp430TimerCallback;
 - (void) resetTimers;
+- (void) pauseTimers;
 
 @end
 

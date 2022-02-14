@@ -31,6 +31,9 @@ float frameWidth;
 
 @synthesize size;
 @synthesize wyoscanArea;
+@synthesize hour;
+@synthesize minute;
+@synthesize second;
 
 /*
     @implementation display from f91w.m
@@ -78,7 +81,7 @@ float frameWidth;
             unsigned char myByte = LCDMEM[i];
 
             // debug
-            // NSLog(@"%c", myByte);
+//             NSLog(@"myByte = %c", myByte);
             
             // loop through the bits
             for(int j = 0; j<8; j++){
@@ -90,7 +93,7 @@ float frameWidth;
 
                         // pull the bit
                         unsigned char myBit = myByte & (1<<j);
-                        // NSLog(@"%d", myBit);
+//                         NSLog(@"myBit = %d", myBit);
 
                         if(myBit > 0){
                             // bit is set
@@ -100,9 +103,10 @@ float frameWidth;
                             [(SKShapeNode*)[[SKNodeArray objectAtIndex:i]objectAtIndex:j] setFillColor:[UIColor colorWithRed: .1f green: .1f blue: .1f alpha: 1.0f]];
                         }
                     } else {
+//                             NSLog(@"DEBUG : %d:%d:%d", hour, minute, second);
                         // draw all segments on when not running
                         // will be better to show finished time, not all segments on
-                        [(SKShapeNode*)[[SKNodeArray objectAtIndex:i]objectAtIndex:j] setFillColor:[SKColor whiteColor]];
+//                        [(SKShapeNode*)[[SKNodeArray objectAtIndex:i]objectAtIndex:j] setFillColor:[SKColor whiteColor]];
                     }
 
                 } else {
@@ -492,11 +496,17 @@ float frameWidth;
 
     NSTimeInterval elapsed = [startTime timeIntervalSinceNow] * -1;
 
+//    div_t h = div(elapsed, 3600);
+//    NSInteger hour = h.quot;
+//    div_t m = div(h.rem, 60);
+//    NSInteger minute = m.quot;
+//    NSInteger second = m.rem;
+    
     div_t h = div(elapsed, 3600);
-    NSInteger hour = h.quot;
+    hour = h.quot;
     div_t m = div(h.rem, 60);
-    NSInteger minute = m.quot;
-    NSInteger second = m.rem;
+    minute = m.quot;
+    second = m.rem;
 
     /*
         clock
@@ -515,11 +525,61 @@ float frameWidth;
     RTCMIN = int2bcd((char)minute);
     RTCHOUR = int2bcd((char)hour);
 
-    // NSLog(@"DEBUG : RTCSEC = %c", RTCSEC);
+//     NSLog(@"DEBUG : RTCSEC = %c", RTCSEC);
     // fprintf(stderr, "DEBUG : RTCSEC: %c \n", RTCSEC);       // C-specific logging
-    // NSLog(@"DEBUG : %d:%d:%d", hour, minute, second);
+//     NSLog(@"DEBUG : %d:%d:%d", hour, minute, second);
     
     ds_animateRTC(0,0,0);    
+}
+
+- (void) pauseTimers
+{
+    setHours(hour);
+    setMins(minute);
+    setSecs(second);
+    for(int i = 0; i < 12; i++){
+        
+        // get the byte
+        unsigned char myByte = LCDMEM[i];
+
+        // debug
+//             NSLog(@"myByte = %c", myByte);
+        
+        // loop through the bits
+        for(int j = 0; j<8; j++){
+            
+            // make sure we have a path defined for this memory address
+            if([[SKNodeArray objectAtIndex:i]objectAtIndex:j] != [NSNull null]){
+
+                if (_running) {
+
+                    // pull the bit
+                    unsigned char myBit = myByte & (1<<j);
+//                         NSLog(@"myBit = %d", myBit);
+
+                    if(myBit > 0){
+                        // bit is set
+                        [(SKShapeNode*)[[SKNodeArray objectAtIndex:i]objectAtIndex:j] setFillColor:[SKColor whiteColor]];
+                    } else {
+                        // bit is not set
+                        [(SKShapeNode*)[[SKNodeArray objectAtIndex:i]objectAtIndex:j] setFillColor:[UIColor colorWithRed: .1f green: .1f blue: .1f alpha: 1.0f]];
+                    }
+                } else {
+//                             NSLog(@"DEBUG : %d:%d:%d", hour, minute, second);
+                    // draw all segments on when not running
+                    // will be better to show finished time, not all segments on
+//                        [(SKShapeNode*)[[SKNodeArray objectAtIndex:i]objectAtIndex:j] setFillColor:[SKColor whiteColor]];
+                }
+
+            } else {
+                // null object
+                // NSLog(@"null");
+            }
+        }
+        [(SKShapeNode*)[[SKNodeArray objectAtIndex:8]objectAtIndex:1] setFillColor:[SKColor whiteColor]];
+        [(SKShapeNode*)[[SKNodeArray objectAtIndex:8]objectAtIndex:1] setFillColor:[SKColor whiteColor]];
+        
+    }
 }
 
 - (void) adjustTimers
@@ -527,7 +587,6 @@ float frameWidth;
     /*
         update _hz, kill and restart timer
     */
-
     if ([msp430Timer isValid]) {
         [msp430Timer invalidate];
         msp430Timer = nil;
@@ -541,7 +600,6 @@ float frameWidth;
     /* 
         reset startTime after tap to start a new timer
     */
-
     startTime = [NSDate date];
 }
 
