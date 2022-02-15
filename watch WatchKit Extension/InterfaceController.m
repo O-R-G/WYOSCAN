@@ -103,11 +103,12 @@
     if (_faceScene.running) {
         [_faceScene pauseTimers];
         [_faceScene setRunning: NO];
+        [[WKInterfaceDevice currentDevice] playHaptic:WKHapticTypeSuccess];
     } else {
         [_faceScene resetTimers];
         [_faceScene adjustTimers];
         [_faceScene setRunning: YES];
-        [[WKInterfaceDevice currentDevice] playHaptic:WKHapticTypeNotification];
+        [[WKInterfaceDevice currentDevice] playHaptic:WKHapticTypeStart];
     }
 }
 @end

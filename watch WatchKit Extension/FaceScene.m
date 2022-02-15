@@ -62,7 +62,7 @@ float frameWidth;
     }
     [self initScene:scale x:20 y:20];
     [self initTimers];
-    [[WKInterfaceDevice currentDevice] playHaptic:WKHapticTypeNotification];
+    [[WKInterfaceDevice currentDevice] playHaptic:WKHapticTypeStart];
     _running = YES;
     return self;
 }
@@ -81,7 +81,7 @@ float frameWidth;
             unsigned char myByte = LCDMEM[i];
 
             // debug
-//             NSLog(@"myByte = %c", myByte);
+            // NSLog(@"myByte = %c", myByte);
             
             // loop through the bits
             for(int j = 0; j<8; j++){
@@ -106,7 +106,7 @@ float frameWidth;
 //                             NSLog(@"DEBUG : %d:%d:%d", hour, minute, second);
                         // draw all segments on when not running
                         // will be better to show finished time, not all segments on
-//                        [(SKShapeNode*)[[SKNodeArray objectAtIndex:i]objectAtIndex:j] setFillColor:[SKColor whiteColor]];
+                        // [(SKShapeNode*)[[SKNodeArray objectAtIndex:i]objectAtIndex:j] setFillColor:[SKColor whiteColor]];
                     }
 
                 } else {
@@ -496,12 +496,6 @@ float frameWidth;
 
     NSTimeInterval elapsed = [startTime timeIntervalSinceNow] * -1;
 
-//    div_t h = div(elapsed, 3600);
-//    NSInteger hour = h.quot;
-//    div_t m = div(h.rem, 60);
-//    NSInteger minute = m.quot;
-//    NSInteger second = m.rem;
-    
     div_t h = div(elapsed, 3600);
     hour = h.quot;
     div_t m = div(h.rem, 60);
@@ -525,9 +519,9 @@ float frameWidth;
     RTCMIN = int2bcd((char)minute);
     RTCHOUR = int2bcd((char)hour);
 
-//     NSLog(@"DEBUG : RTCSEC = %c", RTCSEC);
+    // NSLog(@"DEBUG : RTCSEC = %c", RTCSEC);
     // fprintf(stderr, "DEBUG : RTCSEC: %c \n", RTCSEC);       // C-specific logging
-//     NSLog(@"DEBUG : %d:%d:%d", hour, minute, second);
+    // NSLog(@"DEBUG : %d:%d:%d", hour, minute, second);
     
     ds_animateRTC(0,0,0);    
 }
@@ -543,7 +537,7 @@ float frameWidth;
         unsigned char myByte = LCDMEM[i];
 
         // debug
-//             NSLog(@"myByte = %c", myByte);
+        // NSLog(@"myByte = %c", myByte);
         
         // loop through the bits
         for(int j = 0; j<8; j++){
@@ -555,7 +549,7 @@ float frameWidth;
 
                     // pull the bit
                     unsigned char myBit = myByte & (1<<j);
-//                         NSLog(@"myBit = %d", myBit);
+                    // NSLog(@"myBit = %d", myBit);
 
                     if(myBit > 0){
                         // bit is set
@@ -565,10 +559,10 @@ float frameWidth;
                         [(SKShapeNode*)[[SKNodeArray objectAtIndex:i]objectAtIndex:j] setFillColor:[UIColor colorWithRed: .1f green: .1f blue: .1f alpha: 1.0f]];
                     }
                 } else {
-//                             NSLog(@"DEBUG : %d:%d:%d", hour, minute, second);
+                    // NSLog(@"DEBUG : %d:%d:%d", hour, minute, second);
                     // draw all segments on when not running
                     // will be better to show finished time, not all segments on
-//                        [(SKShapeNode*)[[SKNodeArray objectAtIndex:i]objectAtIndex:j] setFillColor:[SKColor whiteColor]];
+                    // [(SKShapeNode*)[[SKNodeArray objectAtIndex:i]objectAtIndex:j] setFillColor:[SKColor whiteColor]];
                 }
 
             } else {
@@ -578,7 +572,6 @@ float frameWidth;
         }
         [(SKShapeNode*)[[SKNodeArray objectAtIndex:8]objectAtIndex:1] setFillColor:[SKColor whiteColor]];
         [(SKShapeNode*)[[SKNodeArray objectAtIndex:8]objectAtIndex:1] setFillColor:[SKColor whiteColor]];
-        
     }
 }
 
