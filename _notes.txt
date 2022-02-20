@@ -11,6 +11,10 @@
     > xcrun simctl list
     > xcrun simctl list devices available
 
+  get destination list
+
+    > xcodebuild -scheme $SCHEME -showdestinations
+
   get bundleid (run after set $BUNDLEPATH)
 
     > mdls -name kMDItemCFBundleIdentifier -r $BUNDLEPATH
