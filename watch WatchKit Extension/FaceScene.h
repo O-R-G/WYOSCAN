@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) initScene:(float)scale x:(float)xOffset y:(float)yOffset;
 
-@property (readonly) CGSize size;
+@property (nonatomic) CGSize size;
 @property (readonly) CGRect wyoscanArea;
 @property (readwrite) float hz;
 @property (readwrite) BOOL running;
