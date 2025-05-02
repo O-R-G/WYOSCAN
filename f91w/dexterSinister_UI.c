@@ -205,19 +205,19 @@ void UI_dispatchEvent(unsigned char TL, unsigned char BL, unsigned char BR){
   //if(TL == 1) setLightOn();
 
   if(TL+BL+BR > 1){
-      void clearLCD();
+      clearLCD();
       currentMode = MODE_INFO;
       currentSubMode = MODE_INFO_SNAKE;
   }
   if(TL & BL & BR){
         // all three buttons are down - show info
-        void clearLCD();
+        clearLCD();
         currentMode = MODE_INFO;
         currentSubMode = MODE_INFO_SNAKE;
 
   } else if((BL == 1) && (TL == 0) && (BR == 0)){
         // only BL is pressed - change mode
-        void clearLCD();
+        clearLCD();
 
         switch( currentMode){
         case MODE_SHOW_TIME:
