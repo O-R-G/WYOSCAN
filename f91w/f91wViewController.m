@@ -5,13 +5,14 @@
 //  Created by e on 5/29/13.
 //  Copyright (c) 2013 HALMOS. All rights reserved.
 //
-
+#import <AVFoundation/AVFoundation.h>
 #import "f91wViewController.h"
 #import <QuartzCore/QuartzCore.h>
 //#import "SVGKit.h"
 //#import "SVGKFastImageView.h"
 #import "display.h"
 #import "f91w.h"
+
 
 @interface f91wViewController ()
 
@@ -46,9 +47,37 @@ float aspect = 740/230;//360;
     if(oldSpeed > 0){
         myf91w.f91wSpeed = oldSpeed;
     }
-    
-  }
-
+    // Set up and start background music
+    [self setupBackgroundMusic];
+}
+// Add this new method to setup background music
+- (void)setupBackgroundMusic {
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSURL *audioURL = [bundle URLForResource:@"jingle" withExtension:@"mp3"];
+    if (audioURL) {
+        NSError *error = nil;
+        
+        // Initialize audio session for background playback
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&error];
+        if (error) {
+            NSLog(@"Error setting audio session category: %@", error.localizedDescription);
+        }
+        
+        // Create audio player
+        self.backgroundMusic = [[AVAudioPlayer alloc] initWithContentsOfURL:audioURL error:&error];
+        if (error) {
+            NSLog(@"Error creating audio player: %@", error.localizedDescription);
+            return;
+        }
+        
+        self.backgroundMusic.delegate = (id)self;
+        self.backgroundMusic.numberOfLoops = -1; // Infinite looping
+        [self.backgroundMusic prepareToPlay];
+        [self.backgroundMusic play];
+    } else {
+        NSLog(@"Background music file not found");
+    }
+}
 - (void)layoutSubviews
 {
         

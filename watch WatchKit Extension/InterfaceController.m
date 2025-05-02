@@ -27,18 +27,56 @@
     self.crownSequencer.delegate = self;
     _faceScene = [FaceScene nodeWithFileNamed:@"FaceScene"];
     [self.mainScene presentScene: _faceScene];
+    
+    // Set up and start background music
+    [self setupBackgroundMusic];
 }
-
+// Add this new method to setup background music
+- (void)setupBackgroundMusic {
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSURL *audioURL = [bundle URLForResource:@"jingle" withExtension:@"mp3"];
+    if (audioURL) {
+        NSError *error = nil;
+        
+        // Initialize audio session for background playback
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&error];
+        if (error) {
+            NSLog(@"Error setting audio session category: %@", error.localizedDescription);
+        }
+        
+        // Create audio player
+        self.backgroundMusic = [[AVAudioPlayer alloc] initWithContentsOfURL:audioURL error:&error];
+        if (error) {
+            NSLog(@"Error creating audio player: %@", error.localizedDescription);
+            return;
+        }
+        
+        self.backgroundMusic.delegate = (id)self;
+        self.backgroundMusic.numberOfLoops = -1; // Infinite looping
+        [self.backgroundMusic prepareToPlay];
+        [self.backgroundMusic play];
+    } else {
+        NSLog(@"Background music file not found");
+    }
+}
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
-
-    _hz_slider = 25;     
+    // Resume background music when app becomes active
+    if (self.backgroundMusic && !paused) {
+        [self.backgroundMusic play];
+    }
+    _hz_slider = 25;
     [_hzSlider setValue:_hz_slider];
     [self.crownSequencer focus];
+    
 }
 
 - (void)didDeactivate {
     // This method is called when watch view controller is no longer visible
+    
+    if (self.backgroundMusic) {
+        [self.backgroundMusic pause];
+    }
 }
 
 - (void)viewDidLoad
@@ -111,4 +149,15 @@
         [[WKInterfaceDevice currentDevice] playHaptic:WKHapticTypeStart];
     }
 }
+
+// AVAudioPlayerDelegate method
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    // This will be called when audio finishes playing (if not looping)
+    NSLog(@"Audio finished playing");
+}
+
+- (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error {
+    NSLog(@"Audio player decode error: %@", error.localizedDescription);
+}
+
 @end

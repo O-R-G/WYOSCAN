@@ -28,6 +28,12 @@
 		26AB9FF427A3A556009B2185 /* msp430.c in Sources */ = {isa = PBXBuildFile; fileRef = 63E8671E175A746F00135D0A /* msp430.c */; };
 		26AB9FF527A3A6EE009B2185 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A77DCE21B03EF420042EDA7 /* Media.xcassets */; };
 		26ABA00027A3B217009B2185 /* dexterSinister.c in Sources */ = {isa = PBXBuildFile; fileRef = 63E8670E175953E500135D0A /* dexterSinister.c */; };
+		26D843C52DC3BE810004F697 /* jingle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 26D843C42DC3BE810004F697 /* jingle.mp3 */; };
+		26D843C62DC3BE810004F697 /* jingle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 26D843C42DC3BE810004F697 /* jingle.mp3 */; };
+		26D843C72DC3BE810004F697 /* jingle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 26D843C42DC3BE810004F697 /* jingle.mp3 */; };
+		26D843C82DC3BE9B0004F697 /* jingle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 26D843C42DC3BE810004F697 /* jingle.mp3 */; };
+		26D843CA2DC3CF5A0004F697 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26D843C92DC3CF5A0004F697 /* AVFoundation.framework */; };
+		26D843CC2DC447F90004F697 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26D843CB2DC447F90004F697 /* LaunchScreen.storyboard */; };
 		2A77DCE31B03EF420042EDA7 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A77DCE21B03EF420042EDA7 /* Media.xcassets */; };
 		2ADB64301AFAA69400DFEBF7 /* f91w.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E86715175A2C9A00135D0A /* f91w.m */; };
 		2ADB64311AFAA69700DFEBF7 /* display.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E86725175D33E200135D0A /* display.m */; };
@@ -171,6 +177,9 @@
 		26AB9FEB27A2EA93009B2185 /* FaceScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FaceScene.h; sourceTree = "<group>"; };
 		26AB9FEC27A2EAD1009B2185 /* FaceScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FaceScene.m; sourceTree = "<group>"; };
 		26AB9FEE27A3A2FB009B2185 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.3.sdk/System/Library/Frameworks/SpriteKit.framework; sourceTree = DEVELOPER_DIR; };
+		26D843C42DC3BE810004F697 /* jingle.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = jingle.mp3; sourceTree = "<group>"; };
+		26D843C92DC3CF5A0004F697 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		26D843CB2DC447F90004F697 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2A77DCE21B03EF420042EDA7 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		2AE49B7E1B0931F500BADC8B /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		2AE49B821B09415500BADC8B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -258,6 +267,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26D843CA2DC3CF5A0004F697 /* AVFoundation.framework in Frameworks */,
 				63FAD6701759229000FFB66B /* CoreImage.framework in Frameworks */,
 				63FAD66E1759228300FFB66B /* CoreText.framework in Frameworks */,
 				63FAD66C1759227100FFB66B /* libxml2.dylib in Frameworks */,
@@ -357,6 +367,7 @@
 				2621630B27A10ACB007E23E8 /* watchUITests */,
 				6302D24D17567875006961E3 /* Frameworks */,
 				6302D24C17567875006961E3 /* Products */,
+				26D843C42DC3BE810004F697 /* jingle.mp3 */,
 			);
 			sourceTree = "<group>";
 		};
@@ -378,6 +389,7 @@
 		6302D24D17567875006961E3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				26D843C92DC3CF5A0004F697 /* AVFoundation.framework */,
 				26AB9FEE27A3A2FB009B2185 /* SpriteKit.framework */,
 				63FAD66F1759229000FFB66B /* CoreImage.framework */,
 				63FAD66D1759228300FFB66B /* CoreText.framework */,
@@ -406,6 +418,7 @@
 				6302D26D17567875006961E3 /* f91wViewController.m */,
 				6302D25517567875006961E3 /* Supporting Files */,
 				2A77DCE21B03EF420042EDA7 /* Media.xcassets */,
+				26D843CB2DC447F90004F697 /* LaunchScreen.storyboard */,
 			);
 			path = f91w;
 			sourceTree = "<group>";
@@ -721,6 +734,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				262162E027A10ACA007E23E8 /* Assets.xcassets in Resources */,
+				26D843C52DC3BE810004F697 /* jingle.mp3 in Resources */,
 				26AB9FF527A3A6EE009B2185 /* Media.xcassets in Resources */,
 				262162DE27A10ACA007E23E8 /* Interface.storyboard in Resources */,
 			);
@@ -730,6 +744,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26D843C82DC3BE9B0004F697 /* jingle.mp3 in Resources */,
 				262162F727A10ACB007E23E8 /* Assets.xcassets in Resources */,
 				26AB9FEA27A2EA5E009B2185 /* FaceScene.sks in Resources */,
 			);
@@ -753,7 +768,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26D843CC2DC447F90004F697 /* LaunchScreen.storyboard in Resources */,
 				6302D25917567875006961E3 /* InfoPlist.strings in Resources */,
+				26D843C62DC3BE810004F697 /* jingle.mp3 in Resources */,
 				6302D26117567875006961E3 /* Default.png in Resources */,
 				2A77DCE31B03EF420042EDA7 /* Media.xcassets in Resources */,
 				6302D26317567875006961E3 /* Default@2x.png in Resources */,
@@ -778,6 +795,7 @@
 				071EB1BE211E2EB600AE493E /* Media.xcassets in Resources */,
 				63E86737175E43BF00135D0A /* InfoPlist.strings in Resources */,
 				2AE49B7F1B0931F500BADC8B /* Storyboard.storyboard in Resources */,
+				26D843C72DC3BE810004F697 /* jingle.mp3 in Resources */,
 				63E8673D175E43BF00135D0A /* Credits.rtf in Resources */,
 				63E86743175E43C000135D0A /* MainMenu.xib in Resources */,
 			);
@@ -1426,7 +1444,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -1454,7 +1471,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;

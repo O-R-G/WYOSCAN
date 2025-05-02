@@ -19,8 +19,9 @@
     
 //    __weak IBOutlet UILabel *hzLabel2;
 }
-
+@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 @property (weak, nonatomic) IBOutlet UILabel *hzLabel2;
+@property (nonatomic, strong) AVAudioPlayer *backgroundMusic;
 
 - (IBAction)panAction:(UIPanGestureRecognizer *)sender;
 
