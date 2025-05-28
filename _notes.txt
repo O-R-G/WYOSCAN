@@ -20,8 +20,9 @@
     > mdls -name kMDItemCFBundleIdentifier -r $BUNDLEPATH
 
   phone
+ this should be done in _build-{SCHEME) file
 
-    > SCHEME=multi
+    > SCHEME=f91w
     > DEVICEID=A736F7FD-1EC9-4EB3-9F88-33A12B76E96F
     > DESTINATION='platform=iOS Simulator,name=iPhone 11,OS=15.0'
     > BUNDLEPATH=/Users/reinfurt/Library/Developer/Xcode/DerivedData/f91w-dunrpptkgxpbdabkxsafcibwiwet/Build/Products/Debug-watchsimulator/watch.app

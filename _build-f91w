@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # setup xcodebuild environment
-SCHEME="jules"
+SCHEME="f91w"
 DEVICEID="BCB94ECD-C8ED-44C2-94A1-11BA11C49F7E"
 DESTINATION="platform=iOS Simulator,name=iPhone 16,OS=18.4"
-BUNDLEPATH="/Users/reinfurt/Library/Developer/Xcode/DerivedData/jules-gwsnmzsxnrhqilgeriwvrtqmxhtd/Build/Products/Debug-iphonesimulator/Jules.app"
-BUNDLEID="com.o-r-g.jules"
+BUNDLEPATH="/Users/reinfurt/Library/Developer/Xcode/DerivedData/f91w-dunrpptkgxpbdabkxsafcibwiwet/Build/Products/Debug-iphonesimulator/f91w.app"
+BUNDLEID="com.o-r-g.f91w"
 
 # open simulator (non-blocking)
 open -a Simulator --args -CurrentDeviceUDID "$DEVICEID"
