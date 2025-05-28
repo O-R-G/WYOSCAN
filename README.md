@@ -20,7 +20,7 @@ Make a local xcodebuild commandline environment
 
 		mdls -name kMDItemCFBundleIdentifier -r $BUNDLEPATH
 		
-4. edit _build-{SCHEME} with values (one file per scheme)
+4. edit _build-schemename with values (one file per scheme)
 
 		SCHEME=
 		DEVICEID=
@@ -30,11 +30,11 @@ Make a local xcodebuild commandline environment
     
 5. make executable
 
-		chmod +x _build-{SCHEME}
+		chmod +x _build-schemename
 
 6. run
 
-		./_build-{SCHEME}
+		./_build-schemename
 
 --
 
