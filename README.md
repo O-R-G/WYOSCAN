@@ -4,7 +4,9 @@ v1.0.3
 
 --
 
-Make local xcodebuild commandline environment following:
+Make a local xcodebuild commandline environment
+
+--
 
 1. list schemes, targets
 
@@ -36,7 +38,9 @@ Make local xcodebuild commandline environment following:
 
 --
 
-Other useful xcodebuild commands:
+Other useful xcodebuild commands
+
+--
 
 start simulator 
 
